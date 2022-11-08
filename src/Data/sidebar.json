@@ -1,22 +1,23 @@
 [
   {
-    "title": "General",
+    "title": "Dashboard",
+    "icon": "bi-question-circle-fill",
+    "path": "/dashboard/"
+  },
+
+  {
+    "title": "Services",
     "icon": "BsFillGearFill",
     "childrens": [
       {
-        "title": "User Create",
+        "title": "Services",
         "icon": "bi-house-fill",
-        "path": "users/create/"
+        "path": "/dashboard/services/"
       },
       {
-        "title": "Contact",
-        "icon": "bi-phone-fill",
-        "childrens": [
-          {
-            "title": "Facebook",
-            "icon": "bi-facebook"
-          }
-        ]
+        "title": "Create",
+        "icon": "bi-house-fill",
+        "path": "/dashboard/services/create"
       },
       {
         "title": "FAQ",

@@ -7,7 +7,7 @@ import LeftSideBar from '../Components/LeftSideBar/LeftSideBar';
 //
 //
 //
-// THIS ROUTE ONLY FOR CLIENT TYPE OF USER
+// THIS ROUTE ONLY FOR CLIENTs TYPE OF USER
 // WE HAVE 3 KINDS OF USER TYPE
 // guest (visitors), client, & Admin
 //

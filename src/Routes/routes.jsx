@@ -9,6 +9,8 @@ import Registration from "../Pages/Registration/Registration";
 import UserCreate from "../Pages/Users/UserCreate";
 import UserEdit from "../Pages/Users/UserEdit";
 import Users from "../Pages/Users/Users";
+import ClientsServices from "../PagesClients/ClientsServices/ClientsServices";
+import ClientsServicesCreate from "../PagesClients/ClientsServices/ClientsServicesCreate";
 import NotForLoggedInUser from "../PrivateRoute/NotForLoggedInUser";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
@@ -51,9 +53,22 @@ export const router = createBrowserRouter([
                 path: '/registration/',
                 element: <Registration></Registration>,
             },
+            //
+            // Routes for client type of users
+            //
+            //
+
+
             {
                 path: '/dashboard/',
                 element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+            }, {
+                path: '/dashboard/services',
+                element: <PrivateRoute><ClientsServices></ClientsServices></PrivateRoute>,
+            },
+            {
+                path: '/dashboard/services/create',
+                element: <PrivateRoute><ClientsServicesCreate></ClientsServicesCreate></PrivateRoute>,
             },
         ]
 
