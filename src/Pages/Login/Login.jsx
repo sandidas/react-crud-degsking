@@ -4,6 +4,7 @@ import { AuthContext } from '../../Context/UserContext';
 import useTitle from '../../Hooks/useTitle';
 import Logo from '../../assets/logo.svg'
 import getJwtToken from '../../Helpers/JwtToken';
+import { storeSingleUser } from '../../Helpers/StoreSingleUser';
 
 const Login = () => {
     useTitle('Login');
@@ -55,12 +56,12 @@ const Login = () => {
                 const user = result.user;
                 // get/generate jwt token
                 const currentUser = {
-                    email: email
+                    email: user.email
                 }
                 getJwtToken(currentUser);
                 // token completed
 
-                storeSingleUser(user)
+                storeSingleUser(user, false)
                 showAlert('success', "Logged in successfully.");
                 navigate(from, { replace: true });
             })
@@ -71,57 +72,6 @@ const Login = () => {
             });
     }
 
-    // store in local / mongo
-    const storeSingleUser = async (user) => {
-        let userPassword;
-        if (!password) {
-            userPassword = handleGeneratePassword();
-        } else {
-            userPassword = password;
-        }
-        console.log('up', password);
-        console.log('sp ', userPassword);
-
-        const userInfo = {
-            name: user.name, // come from state
-            email: user.email, // come from state
-            password: userPassword, // come from state
-            photoURL: user.photoURL,
-            phoneNumber: user.phoneNumber,
-            uid: user.uid,
-            description: '',
-            email_temp: '',
-            remember_token: '',
-            emailVerified: user.emailVerified,
-            user_type: 'client',
-            is_admin: false,
-            soft_delete: false,
-            deleted_at: '',
-            updated_at: '',
-            created_at: Date.now(),
-        }
-        const uri = "http://localhost:5000/user";
-        const settings = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(userInfo)
-        };
-        try {
-            const fetchResponse = fetch(uri, settings);
-            const data = fetchResponse.json();
-            if (data.success === true) {
-                setLog(log => [...log, { 'LocalDB': { 'status': true, 'Message': data.message } }]);
-            } else if (data.success === false) {
-                setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': data.message } }]);
-            } else {
-                setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': data.message } }]);
-            }
-        } catch (error) {
-            setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': error } }]);
-        }
-    }
 
 
 
@@ -131,7 +81,7 @@ const Login = () => {
             <div className="flex justify-center">
                 <img src={Logo} alt="" className='w-3/5' />
             </div>
-            <div className="p-6 rounded-md sm:p-10 dark:bg-gray-900 dark:text-gray-100 bg-gray-100 shadow shadow-slate-500 border-slate-700">
+            <div className="p-6 rounded-md sm:p-10 dark:bg-gray-900 dark:text-gray-100 bg-gray-100">
                 <div className="mb-8 text-center">
                     <h1 className="my-3 text-4xl font-bold">Login Now</h1>
                     <p className="text-sm dark:text-gray-400">Login to access your account</p>

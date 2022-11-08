@@ -3,14 +3,15 @@
 Hi Upcoming kings,
 
 # Live Website
+https://devsking-5ce91.web.app/
 
 # Features and functions
 
 -> Registration
 -- Form { Event: handleAdduser > createNewUser (firebase) {
-handleUpdateUserProfile, storeSingleUser (Local DB ) > Alert } }
+handleUpdateUserProfile, storeSingleUser (Local DB ) > getJwtToken > Alert } }
 -- Social (Google, GitHub) {
-socialLogin > storeSingleUser (if empty password then generate password by a function) ( Local DB ) > Alert }
+socialLogin > storeSingleUser (if empty password then generate password by a function) ( Local DB ) > getJwtToken > Alert }
 
 - Responsive Design
 - Three type of login (google, github, form)
