@@ -5,24 +5,20 @@ import lightIcon from '../../assets/LightIcon.svg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
+import Logo from '../../assets/logo.svg'
 
 
 const Header = ({ showHideSideNav, setShowHideSideNav }) => {
     const { user, userSignout, setLoading, showAlert } = useContext(AuthContext);
 
-
-
-
     const navigate = useNavigate();
     const [theme, setTheme] = useState(false);
     const [uSettings, setUSettings] = useState(false);
-
 
     const [mobNavigation, setMobNavigation] = useState(false);
     const handleMobileNavigation = () => {
         setMobNavigation(!mobNavigation);
     }
-
 
     // toggle dark and light mode
     useEffect(() => {
@@ -111,8 +107,6 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
             })
 
     }
-
-
     const menuItems = <>
         <li className="flex group font-bold">
             <NavLink to="/" className={({ isActive }) => (isActive ?
@@ -175,11 +169,9 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
 
     </>
 
-
     const logo = <>
-        <AiOutlineAntDesign /> DotDashTech
+        <div className="flex gap-2 items-center font-bold  text-2xl"><img src={Logo} alt="" width="32px" height="32px" /> DevsKing</div>
     </>
-
 
     const userSettings = <>
         <aside className="h-full py-3 w-80 absolute right-0 top-14 z-10" onClick={() => setUSettings(!uSettings)}>

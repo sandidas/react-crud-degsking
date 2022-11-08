@@ -2,12 +2,14 @@ import { async } from '@firebase/util';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
+import generatePassword from '../../Helpers/GeneratePassword';
+import { storeSingleUser } from '../../Helpers/StoreSingleUser';
 
 const Registration = () => {
     const { user, showAlert, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocailAccounts } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [log, setLog] = useState([]);
@@ -22,78 +24,13 @@ const Registration = () => {
     useEffect(() => {
         if (log.length == 3) {
             storeLog();
-            // setLog({});
         }
     }, [log]);
 
-    /*
-    let runEffect = false;
-    if (user && user?.uid) {
-        let runEffect = true;
-    }
-
-    useEffect(() => {
-
-        const timer = setTimeout(() => {
-            navigate('/')
-        }, 4000)
-        console.log('time');
-        return () => clearTimeout(timer);
-
-    }, [runEffect == true])
-
-
-    useEffect(() => {
-        let seconds = 0;
-        const counterF = setInterval(() => {
-            console.log(++seconds);
-            if (seconds === 5) {
-                clearInterval(counterF); // stop interval
-            }
-            setCount((current) => current - 1);
-
-        }, 1000);
-        console.log('counter');
-        // clean useEffect
-        return () => clearInterval(counterF);
-
-    }, [runEffect == true])
-
-*/
-
-    // useEffect(() => {
-    //     console.log('Effect  : ', log);
-    // }, [log])
-
-    // const checkFUnc = async () => {
-    //     await f1();
-    //     await f2();
-    //     await f3();
-    //     // if (log) {
-    //     //     console.log('checkFUnc : ', log);
-    //     // }
-    // }
-
-    // const f1 = async () => {
-
-    //     await setLog(log => [...log, { 'resultOne': { 'status': false, 'Message': 'error' } }]);
-    // }
-
-    // const f2 = async () => {
-    //     await setLog(log => [...log, { 'resultTwo': { 'status': true, 'Message': 'Success' } }]);
-    // }
-
-    // const f3 = async () => {
-    //     await setLog(log => [...log, { 'resultThree': { 'status': false, 'Message': 'error' } }]);
-    // }
-
     const handleGeneratePassword = (event) => {
-        let characters = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+        setGenPassword(generatePassword());
+        setPassword(generatePassword());
 
-        const randomPassword = Math.random().toString(36).slice(10) + characters[Math.floor(Math.random() * characters.length)] + Math.random().toString(36).slice(5) + characters[Math.floor(Math.random() * characters.length)] + Math.random().toString(36).slice(5);
-
-        setGenPassword(randomPassword);
-        setPassword(randomPassword);
     }
 
 
@@ -107,42 +44,35 @@ const Registration = () => {
             showAlert('danger', "Please do not leave any empty fields.");
             return
         }
-        const userInfo = {
-            name: name,
-            email: email,
-            password: password,
-            photoURL: photoURL,
-        }
-        // console.log(userInfo);
-        // storeSingleUser(user);// send to server helper 
 
+
+        // console.log(userInfo);
         // call g.firebase by context to store in firebase
         createNewUser(email, password)
-
             .then(result => {
+                setLoading(true);
                 // console.log(result);
-                // form.reset();
-
                 handleUpdateUserProfile(name, photoURL);// update user name and photo
-                handleEmailVerification(); // send mail verification
+                // handleEmailVerification(); // send mail verification
                 // after data added to firebase will add into mongo
-                storeSingleUser(userInfo); // store user to mongo db
-                // store log to mongo db
 
+                // store log to mongo db
                 const user = result.user;
+                //
+                storeSingleUser(user, password); // store user to mongo db
                 showAlert('success', "Successfully Registered! Redirecting...");
                 // console.log(user);
-
+                setLoading(false);
                 const timer = setTimeout(() => {
-                    // navigate('/')
+                    navigate('/')
                     navigate(from, { replace: true });
                 }, 4000)
                 return () => clearTimeout(timer);
 
+
             })
             .catch(error => {
                 // console.log(error);
-
                 const errors = error.message + ' | ' + error.code;
                 showAlert('danger', errors);
             })
@@ -186,39 +116,7 @@ const Registration = () => {
 
 
     // store in local / mongo
-    const storeSingleUser = async (user) => {
-        const uri = "http://localhost:5000/user";
-        const settings = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(user)
-        };
-        try {
-            const fetchResponse = fetch(uri, settings);
-            const data = fetchResponse.json();
-            if (data.success === true) {
-                // userLog = [...userLog, { LocalDB: { 'status': true, 'Message': 'Success' } }];
-                setLog(log => [...log, { 'LocalDB': { 'status': true, 'Message': data.message } }]);
-                // console.log('local', data.message);
-            } else if (data.success === false) {
-                // userLog = [...userLog, { LocalDB: { 'status': false, 'Message': 'Fail' } }];
-                setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': data.message } }]);
-                // console.log('local', data.message);
 
-            } else {
-                // userLog = [...userLog, { LocalDB: { 'status': false, 'Message': 'Fail' } }];
-                setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': data.message } }]);
-                // console.log('local', data.message);
-            }
-        } catch (error) {
-            // userLog = [...userLog, { LocalDB: { 'status': false, 'Message': 'Fail' } }];
-            setLog(log => [...log, { 'LocalDB': { 'status': false, 'Message': error } }]);
-            // console.log('Local store fail: ', error);
-
-        }
-    }
 
 
 
@@ -255,8 +153,10 @@ const Registration = () => {
         loginBySocailAccounts(event)
             .then((result) => {
                 const user = result.user;
-                showAlert('success', "Logged in successfully.");            
-                navigate(from, { replace: true });
+                console.log(user);
+                storeSingleUser(user, password); // store user to mongo db
+                showAlert('success', "Logged in successfully.");
+               // navigate(from, { replace: true });
             })
             .catch((error) => {
                 setLoading(false);
@@ -265,15 +165,35 @@ const Registration = () => {
             });
     }
 
+    /*
+    useEffect(() => {
+        let seconds = 0;
+        const counterF = setInterval(async () => {
+            console.log(++seconds);
+            if (seconds === 5) {
+                await clearInterval(counterF); // stop interval
+                if (user && user?.uid) {
+                    await navigate('/');
+                }
+            }
+            await setCount((current) => current - 1);
+
+        }, 1000);
+        // clean useEffect
+        return () => clearInterval(counterF);
+    }, [])
+*/
+
 
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
     const labelClasses = "block mb-2 text-sm text-slate-400";
     // check user logged in or not. if logged in then redirect to dashoboard
     if (user && user?.uid) {
         return (
-            <div className='flex flex-col space-y-4 items-center'>
+            <div className='flex flex-col space-y-4 items-center justify-center h-[60vh]'>
                 <div className='text-2xl text-pink-400'>Logged-in users are not needed to register again.</div>
-                {count && count}
+                <p>You will redirect in</p>
+                <div className='text-7xl font-bold text-gray-700'> {count}</div>
             </div>
         )
     } else {

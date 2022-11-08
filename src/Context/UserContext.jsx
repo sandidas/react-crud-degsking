@@ -73,7 +73,7 @@ const UserContext = ({ children }) => {
         // setLoading(true);
         return signOut(auth);
     }
-
+console.log(user);
     // check user signed in or not 
     useEffect(() => {
         console.log('triggerd');
