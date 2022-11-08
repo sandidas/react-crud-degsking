@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import items from "../../Data/sidebar.json"
 import SidebarItem from './SidebarItem';
+import { BsFillGearFill } from "react-icons/bs";
 
 const LeftSideBar = () => {
     const [showsidebarchild, setShowsidebarchild] = useState(false);
