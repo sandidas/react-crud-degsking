@@ -5,3 +5,4 @@ export const setCurrentTheme = (theme) => {
 export const checkCurrentTheme = () => {
     return localStorage.getItem('isDarkMode')
 }
+// Sounds Good
