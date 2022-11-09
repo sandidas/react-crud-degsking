@@ -13,7 +13,7 @@ const HomeServiceCard = ({ service }) => {
 
     return (
 
-        <div className="max-w-lg pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100">
+        <div className="pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100">
             <div className="flex justify-between pb-4 border-bottom">
                 <div className="flex items-center">
                     <div rel="noopener noreferrer" href="#" className="mb-0 capitalize dark:text-gray-100">{service?.service_categories}</div>
@@ -44,8 +44,11 @@ const HomeServiceCard = ({ service }) => {
 
                     </div>
                 </div>
-                <div>
-                    <Link to={service?.slug} className="px-8 py-3 font-semibold rounded-md dark:bg-purple-700  bg-gray-400 text-white hover:bg-purple-800 dark:hover:bg-purple-900 dark:text-white "> Read More</Link>
+                <div className='flex justify-between items-center'>
+                    <div className='font-bold text-xl'>
+                        ${service?.price}
+                    </div>
+                    <Link to={`/services/single/${service?._id}`} className="px-8 py-3 font-semibold rounded-md dark:bg-purple-700  bg-gray-400 text-white hover:bg-purple-800 dark:hover:bg-purple-900 dark:text-white "> Read More</Link>
                 </div>
             </div>
         </div>

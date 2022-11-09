@@ -6,6 +6,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Registration from "../Pages/Registration/Registration";
+import Services from "../Pages/Services/Services";
+import ServiceSingle from "../Pages/Services/ServiceSingle";
 import UserCreate from "../Pages/Users/UserCreate";
 import UserEdit from "../Pages/Users/UserEdit";
 import Users from "../Pages/Users/Users";
@@ -30,7 +32,18 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/home',
+                loader: async () => {
+                    return fetch('http://localhost:5000/servicespublic?page=1&size=3')
+                },
                 element: <Home></Home>,
+            },
+            {
+                path: '/services',
+                element: <Services></Services>,
+            },
+            {
+                path: '/services/single/:id',
+                element: <ServiceSingle></ServiceSingle>,
             },
             {
                 path: '/blogs',

@@ -116,6 +116,14 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
                 Home
             </NavLink>
         </li>
+        <li className="flex group font-bold">
+            <NavLink to="/services" className={({ isActive }) => (isActive ?
+                "dark:text-white text-purple-800 hover:text-white"
+                :
+                "hover:underline")} >
+                Services
+            </NavLink>
+        </li>
 
         <li className="flex">
             <NavLink to="/users/" className={({ isActive }) => (isActive ?

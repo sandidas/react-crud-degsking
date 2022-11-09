@@ -1,8 +1,10 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import HomeServiceCard from './HomeServiceCard';
+import useTitle from '../../Hooks/useTitle';
 
 const Home = () => {
+    useTitle('Home')
     const { data } = useLoaderData();
     const { services } = data;
     console.log(services);
@@ -31,9 +33,9 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <section>
+            <section className='flex flex-col space-y-8 py-20'>
                 <h2> SERVICE </h2>
-                <div className='grid grid-cols-1 xl:grid-cols-3 gap-5'>
+                <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
                     {
                         services.map(service =>
                             <HomeServiceCard
@@ -43,6 +45,10 @@ const Home = () => {
 
                         )
                     }
+                </div>
+
+                <div className='text-center'>
+                    <Link to='/services' className="px-8 w-4/5 py-3 font-semibold rounded-md dark:bg-purple-700  bg-gray-400 text-white hover:bg-purple-800 dark:hover:bg-purple-900 dark:text-white "> Load More .... </Link>
                 </div>
             </section>
 
