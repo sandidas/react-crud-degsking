@@ -74,10 +74,8 @@ const UserContext = ({ children }) => {
         // setLoading(true);
         return signOut(auth);
     }
-    console.log(user);
     // check user signed in or not 
     useEffect(() => {
-        console.log('triggerd');
         const unsSubscribe = onAuthStateChanged(auth, currentUser => {
             if (currentUser) {
                 setUser(currentUser);
@@ -92,9 +90,11 @@ const UserContext = ({ children }) => {
 
     }, [auth])
 
+    console.log('loader Status: ', loading);
+
     // pass data by context
     const authInfo = { showAlert, loading, setLoading, logInbyEmailAndPassword, loginBySocailAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, user }
-    console.log(loading);
+
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

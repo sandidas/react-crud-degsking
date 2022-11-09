@@ -23,6 +23,9 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                loader: async () => {
+                    return fetch('http://localhost:5000/servicespublic?page=1&size=3')
+                },
                 element: <Home></Home>,
             },
             {

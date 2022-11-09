@@ -15,7 +15,6 @@ const ClientsServices = () => {
     const [singleItemInfo, setSingleItemInfo] = useState('');
 
 
-
     // get-render data by pagination
     //==================
     // count : loaded
@@ -50,22 +49,45 @@ const ClientsServices = () => {
                         setTotalNumberOfDocument(data.data.totalItems);
                     })
             } catch (error) {
-                showAlert('danger', 'Fail to load')
+              showAlert('danger', 'Fail to load')
             }
         }
-        dataFetchByPagination();
-        return
-
+      dataFetchByPagination();
+        // return
     }, [currentPage, itemsPerPage])
     // class Names for button
     const generalPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-gray-900 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";
     const selectedPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-pink-700 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";
 
 
-
     const deleteConfirm = (event) => {
         if (singleItemInfo?._id) {
-            singleUserDelete(singleItemInfo?._id)
+            singleServiceDelete(singleItemInfo?._id)
+        }
+    }
+    const singleServiceDelete = async (id) => {
+        const location = `http://localhost:5000/service/${id}`;
+        const settings = {
+            method: 'DELETE'
+        };
+        try {
+            const fetchResponse = await fetch(location, settings);
+            const data = await fetchResponse.json();
+            if (data.success === true) {
+                showAlert('success', data.message)
+                const newResult = featchData.filter(u => u._id != id);
+                setFeatchData(newResult)
+                // console.log(newResult);
+                setSingleItemInfo('')
+
+            } else if (data.success === false) {
+                showAlert('error', data.message)
+            } else {
+                showAlert('danger', data.message)
+            }
+        } catch (error) {
+            // console.log(error);
+            showAlert('danger', "fail to communicate with server")
         }
     }
 
@@ -76,45 +98,56 @@ const ClientsServices = () => {
         return (
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
                 {popupConfirm &&
-                    <>
-                        <React.Fragment>
-                            <Modal
-                                show={popupConfirm}
-                                size="md"
-                                popup={true}
-                                onClose={() => setPopupConfirm(false)}
-                            >
-                                <Modal.Header />
-                                <Modal.Body>
-                                    <div className="text-center">
+                    <React.Fragment>
+                        <Modal
+                            show={popupConfirm}
+                            size="md"
+                            popup={true}
+                            onClose={() => setPopupConfirm(false)}
+                        >
+                            <Modal.Header />
+                            <Modal.Body>
+                                <div className="text-center">
+                                    <BsExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                        Are you sure you want to delete?
+                                    </h3>
+                                    <div className="flex justify-center gap-4">
+                                        <Button
+                                            color="gray"
+                                            onClick={() => setPopupConfirm(false)}
+                                        >
+                                            No, Cancel
+                                        </Button>
 
-                                        <BsExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                            Are you sure you want to delete?
-                                        </h3>
-                                        <div className="flex justify-center gap-4">
-                                            <Button
-                                                color="gray"
-                                                onClick={() => setPopupConfirm(false)}
-                                            >
-                                                No, cancel
-                                            </Button>
-
-                                            <Button
-                                                className='bg-red-600 text-white'
-                                                onClick={() => { deleteConfirm(true), setPopupConfirm(false) }}
-                                            >
-                                                Yes, Delete Please
-                                            </Button>
-
-                                        </div>
+                                        <Button
+                                            className='bg-red-600 text-white'
+                                            onClick={() => { deleteConfirm(true), setPopupConfirm(false) }}
+                                        >
+                                            Yes, Delete Please
+                                        </Button>
                                     </div>
-                                </Modal.Body>
-                            </Modal>
-                        </React.Fragment>
-                    </>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
+                    </React.Fragment>
                 }
-                <h2 className="mb-4 text-2xl font-semibold leading-tight">Services</h2>
+                <div className="mb-4 font-semibold leading-tight flex xl:justify-between flex-row">
+                    <h2 className='text-2xl'>Services</h2>
+                    <div className='w-fit'>
+                        {/* select how many document want to show */}
+                        <select
+                            onChange={event => setItemsPerPage(event.target.value)}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option className='bg-yellow-400' value={itemsPerPage}>{itemsPerPage}</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>
+                        </select>
+                    </div>
+
+                </div>
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-xs table-auto">
 
@@ -127,7 +160,6 @@ const ClientsServices = () => {
 
                             </tr>
                         </thead>
-
 
                         <tbody className=''>
                             {
@@ -148,13 +180,11 @@ const ClientsServices = () => {
                             }
 
                         </tbody>
-
-
                     </table>
                 </div>
 
                 <div className='py-10 text-center'>
-                    <p>Current Page {currentPage}, Selected {itemsPerPage} </p>
+                    <p className='pb-5'>Current Page {currentPage}, Selected {itemsPerPage} </p>
                     <div className="flex justify-center space-x-1 dark:text-gray-100">
 
                         {(spliceStart != 0) &&
@@ -196,18 +226,6 @@ const ClientsServices = () => {
                             </button>
                         }
                     </div>
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
-
-                    {/* select how many document want to show */}
-                    <select
-                        onChange={event => setItemsPerPage(event.target.value)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value={itemsPerPage}>{itemsPerPage}</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                    </select>
                 </div>
             </div >
         );

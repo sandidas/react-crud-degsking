@@ -13,6 +13,12 @@ handleUpdateUserProfile, storeSingleUser (Local DB ) > getJwtToken > Alert } }
 -- Social (Google, GitHub) {
 socialLogin > storeSingleUser (if empty password then generate password by a function) ( Local DB ) > getJwtToken > Alert }
 
+-> Services
+-- Services list | Pagination, limit number of pages, delete, edit, timestamp, slug 
+-- Create > handleFormSubmit > storeService [db] > redirect to edit page with alert
+-- Edit & Update (patch) > handleFormSubmit > patchService >  redirect to same page with alert
+-- Delete > singleServiceDelete > check data exists or not > delete/cancel > return with alert
+
 - Responsive Design
 - Three type of login (google, github, form)
 - Forget password (link goes to email)

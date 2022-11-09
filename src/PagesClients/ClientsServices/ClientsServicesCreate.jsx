@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate, useNavigation } from 'react-router-dom';
+import { Navigate, useNavigate, useNavigation } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 import extensionAndSizeValidations from '../../Helpers/FileSizeTypeValidation';
+import { redirect } from 'react-router-dom';
 
 import useTitle from '../../Hooks/useTitle';
 // import RichTextEditor from 'react-rte';
 const ClientsServicesCreate = () => {
     useTitle('Create Services');
     const { user, showAlert, setLoading } = useContext(AuthContext);
-    const navigate = useNavigation();
+    const navigate = useNavigate();
 
     const [thumbnail, setThumbnail] = useState('');
     const [picture, setPicture] = useState('');
@@ -58,8 +58,6 @@ const ClientsServicesCreate = () => {
         const service_categories = form.service_categories.value;
         const description = form.description.value;
         const price = form.price.value;
-        form.reset();
-
         let slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
         slug = slug + '-' + Date.now();
         const uid = user?.uid;
@@ -82,8 +80,6 @@ const ClientsServicesCreate = () => {
 
     };
 
-
-
     const storeService = async (service) => {
         setLoading(true);
         const uri = "http://localhost:5000/service";
@@ -98,47 +94,28 @@ const ClientsServicesCreate = () => {
         try {
             const fetchResponse = await fetch(uri, settings);
             const data = await fetchResponse.json();
-            if (await data.success) {
+            if (data.success) {
                 showAlert('success', data.message)
                 // now redirect to editing service page
                 const goTourl = `/dashboard/services/edit/${data.insertedId}`;
-
-                //
-                //
-                //
-                //  ERROR : redirect NOT WORKING
-                //
-                //
-                //
-                //
-
-
-
-
-                // <Navigate to="/" replace={true} />
-
+                setLoading(false);
+                navigate(goTourl);
                 // navigate(from, { replace: true });
 
-
-
-
-
             } else if (data.success === false) {
+                setLoading(false);
                 showAlert('error', data.message)
             } else {
+                setLoading(false);
                 showAlert('danger', data.message)
             }
             setLoading(false);
         } catch (error) {
-            console.log(error);
             setLoading(false);
-            return error;
+            console.log(error);
         }
-        setLoading(false);
+
     }
-
-
-
 
 
 

@@ -1,55 +1,58 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 import extensionAndSizeValidations from '../../Helpers/FileSizeTypeValidation';
 
 import useTitle from '../../Hooks/useTitle';
 // import RichTextEditor from 'react-rte';
 const ClientsServicesUpdate = () => {
-    useTitle('Update Services');
-    const { serviceID } = useParams()
-    const { user, showAlert } = useContext(AuthContext);
 
+    useTitle('Update Services');
+    const { id } = useParams()
+    const { user, showAlert, setLoading } = useContext(AuthContext);
     const [thumbnail, setThumbnail] = useState('');
     const [picture, setPicture] = useState('');
-
+    const [singleData, setSingleData] = useState('');
+    const navigate = useNavigate()
 
     // get user data by id 
     useEffect(() => {
-
-        const uri = `http://localhost:5000/user/${id}`;
+        setLoading(true);
+        const uri = `http://localhost:5000/service/${id}`;
         const settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('ds-token')}`
+            }
         };
         const fetchData = async () => {
             try {
                 const fetchResponse = await fetch(uri, settings);
                 const data = await fetchResponse.json();
+                // console.log(data);
                 if (data.success) {
                     // console.log(data);
-                    setUserInfo(data.data);
-                    setPassword(data.data.password);
-                    setName(data.data.name);
-                    setEmail(data.data.email);
-                    // const { userId } = data;
-                    // const goTourl = `/users/edt/${userId}`;
-                    // navigate(goTourl)
+                    setSingleData(data.data);
+                    setThumbnail(data.data.thumbnail);
+
                 } else {
+
                     showAlert('danger', 'Data Not Found');
-                    console.log(error);
-                    navigate('/users/');
+                    navigate('/dashboard/services/');
+                    // console.log(error);
                 }
             } catch (error) {
+
                 showAlert('danger', 'Data Fetch Fail');
-                console.log(error);
-                navigate('/users/');
             }
+
         }
         fetchData();
+        setLoading(false);
     }, []);
     // console.log(userInfo);
-
 
 
 
@@ -90,6 +93,7 @@ const ClientsServicesUpdate = () => {
 
 
     const handleFormSubmit = (event) => {
+
         event.preventDefault(); //
         const form = event.target;
         const title = form.title.value;
@@ -115,15 +119,18 @@ const ClientsServicesUpdate = () => {
             updated_at: '',
             created_at: Date.now(),
         }
-        storeService(service);
+        console.log(service);
+
+        patchService(service);
     };
 
 
 
-    const storeService = async (service) => {
-        const uri = "http://localhost:5000/service";
+    const patchService = async (service) => {
+        setLoading(true);
+        const uri = `http://localhost:5000/service/${id}`;
         const settings = {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('ds-token')}`
@@ -137,10 +144,6 @@ const ClientsServicesUpdate = () => {
                 showAlert('success', data.message)
                 // now redirect to editing service page
 
-
-
-
-
             } else if (data.success === false) {
                 showAlert('error', data.message)
             } else {
@@ -149,11 +152,8 @@ const ClientsServicesUpdate = () => {
         } catch (error) {
             console.log(error);
         }
+        setLoading(false);
     }
-
-
-
-
 
 
 
@@ -171,13 +171,13 @@ const ClientsServicesUpdate = () => {
                     <div className="space-y-4">
                         <div>
                             <label htmlFor="title" className={labelsClass}>Service Title</label>
-                            <input required type="text" name="title" id="title" placeholder="Title" className={inputClasses} />
+                            <input required type="text" name="title" id="title" placeholder="Title" className={inputClasses} defaultValue={singleData?.title} />
                         </div>
 
                         <div>
                             <label htmlFor="service_categories" className={labelsClass}>Category</label>
                             <select name="service_categories" id="service_categories" className={inputClasses} >
-
+                                <option defaultValue={singleData?.service_categories}>{singleData?.service_categories}</option>
                                 <option value={'Website Design'}>Website Design</option>
                                 <option value={'Website Development'}>Website Development</option>
                                 <option value={'Website Development'}>Web App Development</option>
@@ -188,24 +188,27 @@ const ClientsServicesUpdate = () => {
 
                         <div>
                             <label htmlFor="description" className={labelsClass}>Description</label>
-                            <textarea row="20" className={inputClasses} name="description" ></textarea>
+                            <textarea defaultValue={singleData?.description} row="20" color='20' className={inputClasses} name="description" ></textarea>
                         </div>
                     </div>
                 </div>
                 <div className='lg:col-span-2 space-y-4'>
                     <div>
                         <label htmlFor="price" className={labelsClass}>Price</label>
-                        <input required type="number" name="price" id="price" placeholder="Price" className={inputClasses} />
+                        <input defaultValue={singleData?.price} required type="number" name="price" id="price" placeholder="Price" className={inputClasses} />
                     </div>
 
 
                     <div className='relative bg-gray-500 overflow-hidden rounded-md p-2'>
-                        {picture && <div>
+                        {picture ? <div>
                             <img src={picture} alt="" />
-                        </div>}
-                        <input required onChange={(e) => { convet2base64(e), handleShowFile(e) }} type="file" name="thumbnail" className="" />
+                        </div>
+                            :
+                            <img src={singleData?.thumbnail} alt="" />
+                        }
+                        <input onChange={(e) => { convet2base64(e), handleShowFile(e) }} type="file" name="thumbnail" className="" />
                     </div>
-                    <button className="flex items-center justify-center w-full p-4 my-2 space-x-4  rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white">Create Service</button>
+                    <button className="flex items-center justify-center w-full p-4 my-2 space-x-4  rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white">Update Service</button>
                 </div>
 
             </form>
