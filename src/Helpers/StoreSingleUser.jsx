@@ -38,11 +38,11 @@ export const storeSingleUser = async (user, password) => {
         const fetchResponse = await fetch(uri, settings);
         const data = await fetchResponse.json();
         if (data.success === true) {
-            return result = { 'status': true, 'Message': data.message };
+            return true
         } else if (data.success === false) {
-            return result = { 'status': false, 'Message': data.message };
+            return false;
         } else {
-            return result = { 'status': false, 'Message': data.message };
+            return false
         }
     } catch (error) {
         console.log(error);

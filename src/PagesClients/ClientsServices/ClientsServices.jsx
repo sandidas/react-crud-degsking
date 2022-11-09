@@ -5,6 +5,7 @@ import Loader from '../../Components/Loader/Loader';
 import { BsChevronCompactLeft, BsExclamationCircle } from "react-icons/bs";
 import { Button, Modal } from 'flowbite-react';
 import ClientServiceRow from './ClientServiceRow';
+import { useNavigate } from 'react-router-dom';
 const ClientsServices = () => {
     useTitle('Services');
 
@@ -13,7 +14,7 @@ const ClientsServices = () => {
     const [popupConfirm, setPopupConfirm] = useState(false);
     const [showInfo, setShowInfo] = useState('');
     const [singleItemInfo, setSingleItemInfo] = useState('');
-
+    const navigate = useNavigate();
 
     // get-render data by pagination
     //==================
@@ -50,7 +51,13 @@ const ClientsServices = () => {
                 // JWToken validation 
                 if (!jsonData.success && jsonData.status === 401) {
                     showAlert('danger', `${jsonData.message}`)
-                    userSignout(); // if jwt is invalid user sign out
+                    userSignout() // if jwt is invalid user sign out
+                        .then(() => {
+                            navigate('/login');
+                        })
+                        .catch((error) => {
+                            navigate('/login');
+                        })
                 } else if (!jsonData.success) {
                     showAlert('danger', `${jsonData.message}`)
                 } else {
@@ -68,6 +75,8 @@ const ClientsServices = () => {
         // cancel any future `setData`
         return () => isSubscribed = false;
     }, [currentPage, itemsPerPage])
+
+
     // class Names for button
     const generalPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-gray-900 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";
     const selectedPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-pink-700 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";

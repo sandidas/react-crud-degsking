@@ -76,7 +76,7 @@ const Registration = () => {
                 const timer = setTimeout(() => {
                     navigate('/')
                     navigate(from, { replace: true });
-                }, 4000)
+                }, 2000)
                 return () => clearTimeout(timer);
 
 
@@ -172,7 +172,11 @@ const Registration = () => {
                 console.log(user);
                 await storeSingleUser(user, password); // store user to mongo db
                 showAlert('success', "Logged in successfully.");
-                await navigate(from, { replace: true });
+                // make sure system stored JWToken in browser memory
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                }, 1000)
+
             })
             .catch((error) => {
                 setLoading(false);

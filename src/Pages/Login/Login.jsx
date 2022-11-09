@@ -37,8 +37,14 @@ const Login = () => {
                 }
                 getJwtToken(currentUser);
                 // token completed
+
+                // make sure system stored JWToken in browser memory
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                }, 1000)
+
                 showAlert('success', "Logged in successfully.");
-                navigate(from, { replace: true });
+
             })
             .catch(error => {
                 setLoading(false);
@@ -62,8 +68,15 @@ const Login = () => {
                 // token completed
 
                 storeSingleUser(user, false)
+
+                // make sure system stored JWToken in browser memory
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                }, 1000)
+
+
                 showAlert('success', "Logged in successfully.");
-                navigate(from, { replace: true });
+                //  navigate(from, { replace: true });
             })
             .catch((error) => {
                 setLoading(false);

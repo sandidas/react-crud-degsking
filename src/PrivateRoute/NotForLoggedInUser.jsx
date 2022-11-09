@@ -8,7 +8,6 @@ const NotForLoggedInUser = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    console.log(loading);
     if (loading) {
         return <Loader />
     } else {

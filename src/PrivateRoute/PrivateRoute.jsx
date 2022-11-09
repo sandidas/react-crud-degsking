@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import Loader from '../Components/Loader/Loader';
 import { AuthContext } from '../Context/UserContext';
 import LeftSideBar from '../Components/LeftSideBar/LeftSideBar';
@@ -16,6 +16,7 @@ import LeftSideBar from '../Components/LeftSideBar/LeftSideBar';
 //
 //=====================================
 const PrivateRoute = ({ children }) => {
+    const location = useLocation();
     const { user, loading } = useContext(AuthContext);
     const [showHideSideNav, setShowHideSideNav] = useState(false);
 
@@ -43,7 +44,7 @@ const PrivateRoute = ({ children }) => {
             </>
         )
     } else {
-        return <Navigate to='/'></Navigate>
+        return <Navigate to='/login' state={{ from: location }} replace />
     }
 };
 

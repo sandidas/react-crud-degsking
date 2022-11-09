@@ -6,8 +6,7 @@ import useTitle from '../../Hooks/useTitle';
 const Home = () => {
     useTitle('Home')
     const { data } = useLoaderData();
-    const { services } = data;
-    console.log(services);
+    const { services } = data; 
     return (
         <>
 
