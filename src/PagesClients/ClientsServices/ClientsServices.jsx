@@ -8,7 +8,7 @@ import ClientServiceRow from './ClientServiceRow';
 const ClientsServices = () => {
     useTitle('Services');
 
-    const { user, showAlert, setLoading, loading } = useContext(AuthContext);
+    const { user, showAlert, setLoading, loading, userSignout } = useContext(AuthContext);
     const [featchData, setFeatchData] = useState([]);
     const [popupConfirm, setPopupConfirm] = useState(false);
     const [showInfo, setShowInfo] = useState('');
@@ -33,6 +33,8 @@ const ClientsServices = () => {
 
     // console.log(user.uid);
     useEffect(() => {
+        let isSubscribed = true;
+
         const dataFetchByPagination = async () => {
             const location = `http://localhost:5000/services?page=${currentPage}&size=${itemsPerPage}&uid=${user.uid}`;
             const settings = {
@@ -42,18 +44,29 @@ const ClientsServices = () => {
                 }
             };
             try {
-                await fetch(location, settings)
-                    .then(res => res.json())
-                    .then(data => {
-                        setFeatchData(data.data.services);
-                        setTotalNumberOfDocument(data.data.totalItems);
-                    })
+                const apiFetch = await fetch(location, settings)
+                const jsonData = await apiFetch.json();
+
+                // JWToken validation 
+                if (!jsonData.success && jsonData.status === 401) {
+                    showAlert('danger', `${jsonData.message}`)
+                    userSignout(); // if jwt is invalid user sign out
+                } else if (!jsonData.success) {
+                    showAlert('danger', `${jsonData.message}`)
+                } else {
+                    setFeatchData(jsonData.data.services);
+                    setTotalNumberOfDocument(jsonData.data.totalItems);
+                }
             } catch (error) {
-              showAlert('danger', 'Fail to load')
+
+                console.log(error);
             }
         }
-      dataFetchByPagination();
-        // return
+        dataFetchByPagination()
+            .catch(console.error);
+
+        // cancel any future `setData`
+        return () => isSubscribed = false;
     }, [currentPage, itemsPerPage])
     // class Names for button
     const generalPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-gray-900 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";
