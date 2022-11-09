@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.4.7",
+    "cloudinary": "^1.32.0",
     "firebase": "^9.13.0",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.3.4",

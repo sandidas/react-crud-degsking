@@ -11,6 +11,7 @@ import UserEdit from "../Pages/Users/UserEdit";
 import Users from "../Pages/Users/Users";
 import ClientsServices from "../PagesClients/ClientsServices/ClientsServices";
 import ClientsServicesCreate from "../PagesClients/ClientsServices/ClientsServicesCreate";
+import ClientsServicesUpdate from "../PagesClients/ClientsServices/ClientsServicesUpdate";
 import NotForLoggedInUser from "../PrivateRoute/NotForLoggedInUser";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/services/create',
                 element: <PrivateRoute><ClientsServicesCreate></ClientsServicesCreate></PrivateRoute>,
+            },
+            {
+                path: '/dashboard/services/edit/:id',
+                element: <PrivateRoute><ClientsServicesUpdate></ClientsServicesUpdate></PrivateRoute>,
             },
         ]
 

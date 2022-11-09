@@ -1,19 +1,57 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
-import { Navigate, useNavigation } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 import extensionAndSizeValidations from '../../Helpers/FileSizeTypeValidation';
 
 import useTitle from '../../Hooks/useTitle';
 // import RichTextEditor from 'react-rte';
-const ClientsServicesCreate = () => {
-    useTitle('Create Services');
-    const { user, showAlert, setLoading } = useContext(AuthContext);
-    const navigate = useNavigation();
+const ClientsServicesUpdate = () => {
+    useTitle('Update Services');
+    const { serviceID } = useParams()
+    const { user, showAlert } = useContext(AuthContext);
 
     const [thumbnail, setThumbnail] = useState('');
     const [picture, setPicture] = useState('');
+
+
+    // get user data by id 
+    useEffect(() => {
+
+        const uri = `http://localhost:5000/user/${id}`;
+        const settings = {
+            method: 'GET'
+        };
+        const fetchData = async () => {
+            try {
+                const fetchResponse = await fetch(uri, settings);
+                const data = await fetchResponse.json();
+                if (data.success) {
+                    // console.log(data);
+                    setUserInfo(data.data);
+                    setPassword(data.data.password);
+                    setName(data.data.name);
+                    setEmail(data.data.email);
+                    // const { userId } = data;
+                    // const goTourl = `/users/edt/${userId}`;
+                    // navigate(goTourl)
+                } else {
+                    showAlert('danger', 'Data Not Found');
+                    console.log(error);
+                    navigate('/users/');
+                }
+            } catch (error) {
+                showAlert('danger', 'Data Fetch Fail');
+                console.log(error);
+                navigate('/users/');
+            }
+        }
+        fetchData();
+    }, []);
+    // console.log(userInfo);
+
+
+
 
 
     // Converting the uploaded image to base64
@@ -58,7 +96,6 @@ const ClientsServicesCreate = () => {
         const service_categories = form.service_categories.value;
         const description = form.description.value;
         const price = form.price.value;
-        form.reset();
 
         let slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
         slug = slug + '-' + Date.now();
@@ -79,13 +116,11 @@ const ClientsServicesCreate = () => {
             created_at: Date.now(),
         }
         storeService(service);
-
     };
 
 
 
     const storeService = async (service) => {
-        setLoading(true);
         const uri = "http://localhost:5000/service";
         const settings = {
             method: 'POST',
@@ -98,26 +133,9 @@ const ClientsServicesCreate = () => {
         try {
             const fetchResponse = await fetch(uri, settings);
             const data = await fetchResponse.json();
-            if (await data.success) {
+            if (data.success === true) {
                 showAlert('success', data.message)
                 // now redirect to editing service page
-                const goTourl = `/dashboard/services/edit/${data.insertedId}`;
-
-                //
-                //
-                //
-                //  ERROR : redirect NOT WORKING
-                //
-                //
-                //
-                //
-
-
-
-
-                // <Navigate to="/" replace={true} />
-
-                // navigate(from, { replace: true });
 
 
 
@@ -128,13 +146,9 @@ const ClientsServicesCreate = () => {
             } else {
                 showAlert('danger', data.message)
             }
-            setLoading(false);
         } catch (error) {
             console.log(error);
-            setLoading(false);
-            return error;
         }
-        setLoading(false);
     }
 
 
@@ -149,8 +163,8 @@ const ClientsServicesCreate = () => {
         <div>
 
             <div className="mb-8 text-center">
-                <h1 className="my-3 text-4xl font-bold">Create Service</h1>
-                <p className="text-sm dark:text-gray-400">Sky is your limit</p>
+                <h1 className="my-3 text-4xl font-bold">Update Service</h1>
+                <p className="text-sm dark:text-gray-400">You have no limit</p>
             </div>
             <form className='grid lg:grid-cols-8 gap-5' onSubmit={() => handleFormSubmit(event)}>
                 <div className="rounded-md dark:bg-gray-900 dark:text-gray-100 lg:col-span-6">
@@ -199,4 +213,4 @@ const ClientsServicesCreate = () => {
     );
 };
 
-export default ClientsServicesCreate;
+export default ClientsServicesUpdate;

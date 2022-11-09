@@ -9,6 +9,7 @@ const auth = getAuth(app); // call google firebase auth
 
 const UserContext = ({ children }) => {
     const [user, setUser] = useState('');
+    const [userMydb, setUserMydb] = useState('');
     const [loading, setLoading] = useState(true);
     const showAlert = (type, message) => {
         if (type == "success") {
@@ -73,7 +74,7 @@ const UserContext = ({ children }) => {
         // setLoading(true);
         return signOut(auth);
     }
-console.log(user);
+    console.log(user);
     // check user signed in or not 
     useEffect(() => {
         console.log('triggerd');
@@ -90,7 +91,6 @@ console.log(user);
         return () => unsSubscribe();
 
     }, [auth])
-
 
     // pass data by context
     const authInfo = { showAlert, loading, setLoading, logInbyEmailAndPassword, loginBySocailAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, user }
