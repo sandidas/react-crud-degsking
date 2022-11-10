@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Context/UserContext';
 import StarRating from '../../Helpers/StarRating';
 import useTitle from '../../Hooks/useTitle';
@@ -72,19 +72,24 @@ const ServiceSingle = () => {
     const labelClasses = "block mb-2 text-sm text-slate-400";
 
     const [rating, setRating] = useState(5);
-    const [review, setreview] = useState('');
 
 
     const handleReviewSubmit = (e) => {
         e.preventDefault();
+
+        const review = e.target.reviewText.value;
+
         if (!rating || !review) {
             showAlert('danger', "Please submit review and rating.");
             return
         }
+
         const uid = user?.uid;
+        const name = user?.displayName;
         const reviewData = {
             rating: rating,
             review: review,
+            name: name,
             uid: uid,
             serviceId: id,
             soft_delete: false,
@@ -112,16 +117,16 @@ const ServiceSingle = () => {
             const data = await fetchResponse.json();
             if (data.success) {
                 setRefresh(!refresh);
-                return true;
+                showAlert('success', 'Thanks for your feedback');
             } else if (data.success === false) {
-                return false;;
+                showAlert('error', 'Failed to get feedback');
             } else {
-                return false;;
+                showAlert('error', 'Failed to get feedback');
             }
 
         } catch (error) {
             console.log(error);
-            return false;;
+            showAlert('error', 'Failed to get feedback');
         }
 
     }
@@ -161,36 +166,61 @@ const ServiceSingle = () => {
                     </div>
                 </div>
             </section>
-            <section className='pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100 mt-5'>
-                <form onSubmit={(e) => handleReviewSubmit(e)} className="space-y-4 ng-untouched ng-pristine ng-valid">
-                    <div className='grid grid-cols-8 gap-5'>
-                        <div className='col-span-8'>
-                            <label htmlFor="name" className={labelClasses}>
-                                Ratings
-                            </label>
-                            <div>
-                                <StarRating rating={rating} setRating={setRating} ></StarRating>
+
+
+            <section className='pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100 mt-5 flex flex-col'>
+                {
+                    user && user?.uid ?
+
+                        <form onSubmit={(e) => handleReviewSubmit(e)} className="space-y-4 ng-untouched ng-pristine ng-valid">
+                            <div className='grid grid-cols-8 gap-5'>
+                                <div className='col-span-8'>
+                                    <label htmlFor="name" className={labelClasses}>
+                                        Ratings
+                                    </label>
+                                    <div>
+                                        <StarRating rating={rating} setRating={setRating} ></StarRating>
+                                    </div>
+                                </div>
+
+                                <div className='col-span-8'>
+                                    <label htmlFor="name" className={labelClasses}>
+                                        Review *
+                                    </label>
+                                    <textarea className={inputClasses} name="reviewText" id="" cols="30" rows="3" ></textarea>
+                                </div>
+                                <button className="flex items-center justify-center w-full p-4 my-2 space-x-4  rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white">Submit Review</button>
                             </div>
+                        </form>
+                        :
+                        <div className='flex flex-col text-center items-center'>
+                            <h2 className='text-lg'>
+                                Please login to add a review.
+
+                            </h2>
+                            <Link className="p-4 my-2 rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white" to='/login'>Login Now</Link>
                         </div>
 
-                        <div className='col-span-8'>
-                            <label htmlFor="name" className={labelClasses}>
-                                Review *
-                            </label>
-                            <textarea className={inputClasses} name="" id="" cols="30" rows="3" onChange={(e) => { setreview(e.target.value) }}></textarea>
-                        </div>
-                        <button className="flex items-center justify-center w-full p-4 my-2 space-x-4  rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white">Submit Review</button>
-                    </div>
-                </form>
-            </section>          
+
+
+                }
+
+
+
+
+            </section>
+
+
+
+
             <section className='pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100 mt-5'>
                 {
                     featchReviews.map((review) => <ReviewCard key={review?._id} review={review}>
 
 
-                    </ReviewCard> )
+                    </ReviewCard>)
                 }
-                
+
             </section>
         </div >
     );
