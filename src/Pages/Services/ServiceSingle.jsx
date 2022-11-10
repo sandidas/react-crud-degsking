@@ -5,7 +5,8 @@ import StarRating from '../../Helpers/StarRating';
 import useTitle from '../../Hooks/useTitle';
 import ReviewCard from './ReviewCard';
 import './ServiceSingle.css'
-
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const ServiceSingle = () => {
     useTitle('Service Details');
@@ -21,7 +22,7 @@ const ServiceSingle = () => {
         const dataFetchByPagination = async () => {
             const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
 
-            
+
             const location = `http://localhost:5000/serviceandreview/${id}`;
             const settings = {
                 method: 'GET',
@@ -32,7 +33,7 @@ const ServiceSingle = () => {
             if (jsonData.success) {
                 setFeatchData(jsonData.data.service);
                 setFeatchReviews(jsonData.data.reviews);
-                
+
             }
         }
         dataFetchByPagination();
@@ -148,10 +149,18 @@ const ServiceSingle = () => {
                     </div>
                     <div className="space-y-6 flex flex-col">
                         <div className="space-y-">
-                            <img src={featchData?.thumbnail} alt="" className="block object-cover object-center w-full   rounded-md dark:bg-gray-500" />
+
+
+                            <PhotoProvider>
+                                <PhotoView src={featchData?.thumbnail}>
+                                    <img src={featchData?.thumbnail} alt="" className="block object-cover object-center w-full   rounded-md dark:bg-gray-500" />
+                                </PhotoView>
+                            </PhotoProvider>
+
+
                             <div className="flex pt-4 items-center text-xs justify-between">
                                 <span className='text-2xl'>Total Reviews: {featchData?.reviewsCount}</span>
-                                <span className='text-2xl'>Average Reviews: {   parseFloat(featchData?.ratingsAverage).toFixed(2) }</span>
+                                <span className='text-2xl'>Average Reviews: {parseFloat(featchData?.ratingsAverage).toFixed(2)}</span>
                             </div>
                         </div>
                         <div className="space-y-2">
