@@ -119,7 +119,7 @@ const ServiceSingle = () => {
                 setRefresh(!refresh);
                 showAlert('success', 'Thanks for your feedback');
             } else if (data.success === false) {
-                showAlert('error', 'Failed to get feedback');
+                showAlert('error', 'Failed to get feedback 001');
             } else {
                 showAlert('error', 'Failed to get feedback');
             }

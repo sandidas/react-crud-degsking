@@ -149,7 +149,7 @@ const ClientsServicesCreate = () => {
 
                         <div>
                             <label htmlFor="description" className={labelsClass}>Description</label>
-                            <textarea row="20" className={inputClasses} name="description" ></textarea>
+                            <textarea cols="30" rows="10" className={inputClasses} name="description" ></textarea>
                         </div>
                     </div>
                 </div>

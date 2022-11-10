@@ -125,22 +125,7 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
             </NavLink>
         </li>
 
-        <li className="flex">
-            <NavLink to="/users/" className={({ isActive }) => (isActive ?
-                "dark:text-white text-purple-800 hover:text-white"
-                :
-                "hover:underline")} >
-                Users
-            </NavLink>
-        </li>
-        <li className="flex">
-            <NavLink to="blogs" className={({ isActive }) => (isActive ?
-                "dark:text-white text-purple-800 hover:text-white"
-                :
-                "hover:underline")} >
-                Blogs
-            </NavLink>
-        </li>
+
         <li className="flex">
             <NavLink to="blogs" className={({ isActive }) => (isActive ?
                 "dark:text-white text-purple-800 hover:text-white"
@@ -281,7 +266,7 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
                 </Link>
 
                 {/* large screen links  */}
-                <ul className="hidden space-x-3 lg:flex items-center">
+                <ul className="hidden space-x-3 lg:flex items-center uppercase">
                     {menuItems}
                 </ul>
 
