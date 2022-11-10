@@ -184,6 +184,11 @@ const ClientReviews = () => {
 
     if (loading) {
         return <Loader />
+    } else if (totalNumberOfDocument === 0) {
+
+        return (
+            <div className='text-center'> No reviews were added </div>
+        )
     } else {
         return (
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
@@ -254,8 +259,8 @@ const ClientReviews = () => {
                         </Modal>
                     </React.Fragment>
                 }
-                <div className="mb-4 font-semibold leading-tight flex xl:justify-between flex-row">
-                    <h2 className='text-2xl'>Services</h2>
+                <div className="mb-4 font-semibold leading-tight flex justify-between flex-row">
+                    <h2 className='text-2xl'>Reviews </h2>
                     <div className='w-fit'>
                         {/* select how many document want to show */}
                         <select
@@ -270,14 +275,16 @@ const ClientReviews = () => {
                     </div>
 
                 </div>
+
+
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-xs table-auto">
-
                         <thead className="dark:bg-gray-700">
                             <tr className="text-left ">
                                 <th className="p-3">ID #</th>
                                 <th className="p-3">Review</th>
                                 <th className="p-3">Ratting</th>
+                                <th className="p-3">Service</th>
                                 <th className="p-3">Action</th>
 
                             </tr>
@@ -352,6 +359,9 @@ const ClientReviews = () => {
                         }
                     </div>
                 </div>
+
+
+
             </div >
         );
     }

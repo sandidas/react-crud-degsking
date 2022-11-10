@@ -118,6 +118,11 @@ const ClientsServices = () => {
 
     if (loading) {
         return <Loader />
+    } else if (totalNumberOfDocument === 0) {
+
+        return (
+            <div className='text-center'> No services were added by you </div>
+        )
     } else {
 
         return (

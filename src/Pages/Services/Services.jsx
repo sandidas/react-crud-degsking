@@ -21,7 +21,7 @@ const Services = () => {
     const totalPages = Math.ceil(totalNumberOfDocument / itemsPerPage);
 
     useEffect(() => {
-        setLoading(true);
+         
         const dataFetchByPagination = async () => {
             const location = `http://localhost:5000/servicespublic?page=${currentPage}&size=${itemsPerPage}`;
             try {
@@ -36,7 +36,7 @@ const Services = () => {
             }
         }
         dataFetchByPagination();
-        setLoading(false);
+      
         // return
     }, [currentPage, itemsPerPage])
     const generalPageClasses = "px-9 py-3 font-bold shadow-md dark:bg-gray-900 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800 rounded-md";

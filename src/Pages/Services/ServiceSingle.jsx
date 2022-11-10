@@ -21,7 +21,7 @@ const ServiceSingle = () => {
         const dataFetchByPagination = async () => {
             const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
 
-            await setLoading(true);
+            
             const location = `http://localhost:5000/serviceandreview/${id}`;
             const settings = {
                 method: 'GET',
@@ -32,7 +32,7 @@ const ServiceSingle = () => {
             if (jsonData.success) {
                 setFeatchData(jsonData.data.service);
                 setFeatchReviews(jsonData.data.reviews);
-                await setLoading(false);
+                
             }
         }
         dataFetchByPagination();
@@ -86,12 +86,14 @@ const ServiceSingle = () => {
 
         const uid = user?.uid;
         const name = user?.displayName;
+        const serviceTitle = featchData?.title;
         const reviewData = {
             rating: rating,
             review: review,
             name: name,
             uid: uid,
             serviceId: id,
+            serviceTitle: serviceTitle,
             soft_delete: false,
             deleted_at: '',
             updated_at: '',
@@ -173,8 +175,8 @@ const ServiceSingle = () => {
                     user && user?.uid ?
 
                         <form onSubmit={(e) => handleReviewSubmit(e)} className="space-y-4 ng-untouched ng-pristine ng-valid">
-                            <div className='grid grid-cols-8 gap-5'>
-                                <div className='col-span-8'>
+                            <div className='gap-5'>
+                                <div className=''>
                                     <label htmlFor="name" className={labelClasses}>
                                         Ratings
                                     </label>
@@ -183,7 +185,7 @@ const ServiceSingle = () => {
                                     </div>
                                 </div>
 
-                                <div className='col-span-8'>
+                                <div className=''>
                                     <label htmlFor="name" className={labelClasses}>
                                         Review *
                                     </label>
@@ -204,9 +206,6 @@ const ServiceSingle = () => {
 
 
                 }
-
-
-
 
             </section>
 

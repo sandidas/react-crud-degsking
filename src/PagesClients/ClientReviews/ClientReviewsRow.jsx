@@ -21,11 +21,14 @@ const ClientReviewsRow = ({ da, deleteConfirm, showInfo, popupConfirm, setPopupC
 
             </td>
             <td className="">
-                {da?.review} <br />
-                <i className='text-gray-400 dark:text-gray-400'>{da?.slug}</i>
+                {da?.review} 
+          
             </td>
             <td className="">
-                {da?.rating}
+                {da?.rating}*
+            </td>
+            <td className="">
+                {da?.serviceTitle}
             </td>
             <td className="p-1 flex">
 
