@@ -37,7 +37,7 @@ const ClientsServices = () => {
         let isSubscribed = true;
 
         const dataFetchByPagination = async () => {
-            const location = `http://localhost:5000/services?page=${currentPage}&size=${itemsPerPage}&uid=${user.uid}`;
+            const location = `https://server-side-xi.vercel.app/services?page=${currentPage}&size=${itemsPerPage}&uid=${user.uid}`;
             const settings = {
                 method: 'GET',
                 headers: {
@@ -88,7 +88,7 @@ const ClientsServices = () => {
         }
     }
     const singleServiceDelete = async (id) => {
-        const location = `http://localhost:5000/service/${id}`;
+        const location = `https://server-side-xi.vercel.app/service/${id}`;
         const settings = {
             method: 'DELETE',
             headers: {

@@ -27,14 +27,14 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 loader: async () => {
-                    return fetch('http://localhost:5000/servicespublic?page=1&size=3')
+                    return fetch('https://server-side-xi.vercel.app/servicespublic?page=1&size=3')
                 },
                 element: <Home></Home>,
             },
             {
                 path: '/home',
                 loader: async () => {
-                    return fetch('http://localhost:5000/servicespublic?page=1&size=3')
+                    return fetch('https://server-side-xi.vercel.app/servicespublic?page=1&size=3')
                 },
                 element: <Home></Home>,
             },

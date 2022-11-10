@@ -28,7 +28,7 @@ const UserCreate = () => {
     }
 
     const storeSingleUser = async (user) => {
-        const uri = "http://localhost:5000/user";
+        const uri = "https://server-side-xi.vercel.app/user";
         const settings = {
             method: 'POST',
             headers: {
@@ -58,7 +58,7 @@ const UserCreate = () => {
 
     const handleStoreUser = (user) => {
 
-        fetch('http://localhost:5000/user', {
+        fetch('https://server-side-xi.vercel.app/user', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

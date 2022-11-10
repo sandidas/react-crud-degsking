@@ -1,5 +1,5 @@
 const getJwtToken = async (currentUser) => {
-    const location = `http://localhost:5000/jwt`;
+    const location = `https://server-side-xi.vercel.app/jwt`;
     const settings = {
         method: 'POST',
         headers: {

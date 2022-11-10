@@ -1,5 +1,5 @@
 const handleStoreUser = (user) => {
-    fetch('http://localhost:5000/user', {
+    fetch('https://server-side-xi.vercel.app/user', {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
@@ -21,7 +21,7 @@ const handleStoreUser = (user) => {
 export const deleteUser = (id) => {
     console.log('user from utility: ', id);
 
-    fetch(`http://localhost:5000/users/${id}`, {
+    fetch(`https://server-side-xi.vercel.app/users/${id}`, {
         method: 'DELETE'
     })
         .then(res => res.json())
@@ -36,7 +36,7 @@ export const deleteUser = (id) => {
 
 export const updateUserData = (id, userUpdatedata) => {
     console.log(userUpdatedata);
-    fetch(`http://localhost:5000/users/${id}`, {
+    fetch(`https://server-side-xi.vercel.app/users/${id}`, {
         method: 'PUT',
         headers: {
             'content-type': 'application/json'

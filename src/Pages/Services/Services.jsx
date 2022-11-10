@@ -23,7 +23,7 @@ const Services = () => {
     useEffect(() => {
          
         const dataFetchByPagination = async () => {
-            const location = `http://localhost:5000/servicespublic?page=${currentPage}&size=${itemsPerPage}`;
+            const location = `https://server-side-xi.vercel.app/servicespublic?page=${currentPage}&size=${itemsPerPage}`;
             try {
                 await fetch(location)
                     .then(res => res.json())

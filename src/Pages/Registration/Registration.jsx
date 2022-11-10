@@ -78,7 +78,7 @@ const Registration = () => {
                 const timer = setTimeout(() => {
                     navigate('/')
                     navigate(from, { replace: true });
-                }, 2000)
+                }, 4000)
                 return () => clearTimeout(timer);
 
 
@@ -142,7 +142,7 @@ const Registration = () => {
     const storeLog = () => {
         console.log({ log });
         // store log into data base
-        const uri = "http://localhost:5000/log";
+        const uri = "https://server-side-xi.vercel.app/log";
         const settings = {
             method: 'POST',
             headers: {
@@ -186,7 +186,7 @@ const Registration = () => {
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {
                     navigate(from, { replace: true });
-                }, 1000)
+                }, 4000)
 
             })
             .catch((error) => {

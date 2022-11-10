@@ -23,7 +23,7 @@ const ServiceSingle = () => {
             const delay = (ms = 3000) => new Promise(r => setTimeout(r, ms));
 
 
-            const location = `http://localhost:5000/serviceandreview/${id}`;
+            const location = `https://server-side-xi.vercel.app/serviceandreview/${id}`;
             const settings = {
                 method: 'GET',
             };
@@ -45,7 +45,7 @@ const ServiceSingle = () => {
 
     //   // Fetch method: GET
     //   useEffect(() => {
-    //     fetch(`http://localhost:5000/service/${id}`)
+    //     fetch(`https://server-side-xi.vercel.app/service/${id}`)
     //       .then((res) => res.json())
     //       .then((data) => {
     //         if (data.success) {
@@ -106,7 +106,7 @@ const ServiceSingle = () => {
     }
     const storeSingleRating = async (reviewData) => {
 
-        const uri = "http://localhost:5000/storereview";
+        const uri = "https://server-side-xi.vercel.app/storereview";
         const settings = {
             method: 'POST',
             headers: {

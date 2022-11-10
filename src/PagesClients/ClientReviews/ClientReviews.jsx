@@ -43,7 +43,7 @@ const ClientReviews = () => {
         let isSubscribed = true;
 
         const dataFetchByPagination = async () => {
-            const location = `http://localhost:5000/reviews?page=${currentPage}&size=${itemsPerPage}&uid=${user.uid}`;
+            const location = `https://server-side-xi.vercel.app/reviews?page=${currentPage}&size=${itemsPerPage}&uid=${user.uid}`;
             const settings = {
                 method: 'GET',
                 headers: {
@@ -94,7 +94,7 @@ const ClientReviews = () => {
         }
     }
     const singleItemDelete = async (id) => {
-        const location = `http://localhost:5000/review/${id}`;
+        const location = `https://server-side-xi.vercel.app/review/${id}`;
         const settings = {
             method: 'DELETE',
             headers: {
@@ -146,7 +146,7 @@ const ClientReviews = () => {
     }
     const updateReview = async (review) => {
         const id = singleItemInfo?._id;
-        const uri = `http://localhost:5000/review/${id}`;
+        const uri = `https://server-side-xi.vercel.app/review/${id}`;
         const settings = {
             method: 'PATCH',
             headers: {

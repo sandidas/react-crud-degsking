@@ -26,7 +26,7 @@ export const storeSingleUser = async (user, password, name, photoURL) => {
         updated_at: '',
         created_at: Date.now(),
     }
-    const uri = "http://localhost:5000/user";
+    const uri = "https://server-side-xi.vercel.app/user";
     const settings = {
         method: 'POST',
         headers: {

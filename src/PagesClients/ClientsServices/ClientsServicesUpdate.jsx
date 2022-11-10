@@ -20,7 +20,7 @@ const ClientsServicesUpdate = () => {
     // get user data by id 
     useEffect(() => {
         setLoading(true);
-        const uri = `http://localhost:5000/service/${id}`;
+        const uri = `https://server-side-xi.vercel.app/service/${id}`;
         const settings = {
             method: 'GET',
             headers: {
@@ -123,7 +123,7 @@ const ClientsServicesUpdate = () => {
 
     const patchService = async (service) => {
         setLoading(true);
-        const uri = `http://localhost:5000/service/${id}`;
+        const uri = `https://server-side-xi.vercel.app/service/${id}`;
         const settings = {
             method: 'PATCH',
             headers: {

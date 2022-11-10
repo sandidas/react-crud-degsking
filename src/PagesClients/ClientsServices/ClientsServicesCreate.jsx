@@ -80,7 +80,7 @@ const ClientsServicesCreate = () => {
 
     const storeService = async (service) => {
         setLoading(true);
-        const uri = "http://localhost:5000/service";
+        const uri = "https://server-side-xi.vercel.app/service";
         const settings = {
             method: 'POST',
             headers: {

@@ -20,7 +20,7 @@ const UserEdit = () => {
     // get user data by id 
     useEffect(() => {
 
-        const uri = `http://localhost:5000/user/${id}`;
+        const uri = `https://server-side-xi.vercel.app/user/${id}`;
         const settings = {
             method: 'GET'
         };
@@ -73,7 +73,7 @@ const UserEdit = () => {
 
     // function to updated data
     const handleUpdateUser = async (user, id) => {
-        const uri = `http://localhost:5000/user/${id}`;
+        const uri = `https://server-side-xi.vercel.app/user/${id}`;
         const settings = {
             method: 'PATCH',
             headers: {

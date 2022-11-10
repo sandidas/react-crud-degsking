@@ -26,7 +26,7 @@ const Users = () => {
 /*
     useEffect(() => {
         const dataFetchByPagination = async () => {
-            const location = `http://localhost:5000/userspagination`;
+            const location = `https://server-side-xi.vercel.app/userspagination`;
             try {
                 await fetch(location)
                     .then(res => res.json())
@@ -58,7 +58,7 @@ const Users = () => {
     /*
     // to load all data
     useEffect(() => {
-        const location = "http://localhost:5000/users/";
+        const location = "https://server-side-xi.vercel.app/users/";
         const settings = {
             method: 'GET'
         };
@@ -88,11 +88,11 @@ const Users = () => {
     // console.log(usersData);
 
     // search by query
-    // const location = `http://localhost:5000/user`;
-    // const location = `http://localhost:5000/user?email=${user?.email}`;
+    // const location = `https://server-side-xi.vercel.app/user`;
+    // const location = `https://server-side-xi.vercel.app/user?email=${user?.email}`;
     useEffect(() => {
         const dataFetchByQuery = async () => {
-            const location = `http://localhost:5000/user?email=${user?.email}`;
+            const location = `https://server-side-xi.vercel.app/user?email=${user?.email}`;
             try {
                 await fetch(location)
                     .then(res => res.json())
@@ -119,7 +119,7 @@ const Users = () => {
         }
     }
     const singleUserDelete = async (id) => {
-        const location = `http://localhost:5000/user/${id}`;
+        const location = `https://server-side-xi.vercel.app/user/${id}`;
         const settings = {
             method: 'DELETE'
         };
