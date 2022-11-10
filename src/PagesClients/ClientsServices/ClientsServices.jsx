@@ -90,7 +90,10 @@ const ClientsServices = () => {
     const singleServiceDelete = async (id) => {
         const location = `http://localhost:5000/service/${id}`;
         const settings = {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('ds-token')}`
+            }
         };
         try {
             const fetchResponse = await fetch(location, settings);

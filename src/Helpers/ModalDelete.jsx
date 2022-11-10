@@ -1,14 +1,14 @@
 
 import React from 'react';
 
-const ModalDelete = ({ modalMessage }) => {
+const ModalDelete = ({ modalMessage, setdeleteConfirm, deleteConfirm }) => {
     return (
         <React.Fragment>
             <Modal
                 show={deletePopup}
                 size="md"
                 popup={true}
-                onClose={() => deleteConfirm(false)}
+                onClose={() => setdeleteConfirm(false)}
             >
                 <Modal.Header />
                 <Modal.Body>
@@ -27,7 +27,7 @@ const ModalDelete = ({ modalMessage }) => {
 
                             <Button
                                 className='bg-red-600 text-white'
-                                onClick={() => { deleteConfirm(true), setPopupConfirm(false) }}
+                                onClick={() => { deleteConfirm(true), deletePopup(false) }}
                             >
                                 Yes, Delete Please
                             </Button>

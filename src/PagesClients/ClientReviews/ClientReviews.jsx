@@ -6,6 +6,8 @@ import { BsChevronCompactLeft, BsExclamationCircle } from "react-icons/bs";
 import { Button, Modal } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import ClientReviewsRow from './ClientReviewsRow';
+import StarRating from '../../Helpers/StarRating';
+import { async } from '@firebase/util';
 
 const ClientReviews = () => {
 
@@ -33,7 +35,7 @@ const ClientReviews = () => {
 
     const [spliceStart, setSpliceStart] = useState(0);
     const [spliceEnd, setSpliceEnd] = useState(5);
-
+    const [refresh, setRefresh] = useState(false);
     const totalPages = Math.ceil(totalNumberOfDocument / itemsPerPage);
 
     // console.log(user.uid);
@@ -78,9 +80,8 @@ const ClientReviews = () => {
 
         // cancel any future `setData`
         return () => isSubscribed = false;
-    }, [currentPage, itemsPerPage])
+    }, [currentPage, itemsPerPage, refresh])
 
-    console.log(featchData);
 
     // class Names for button
     const generalPageClasses = "px-3 py-1 text-sm font-semibold shadow-md dark:bg-gray-900 dark:text-purple-400 dark:border-purple-400 hover:bg-gray-400 dark:hover:bg-pink-800";
@@ -89,13 +90,16 @@ const ClientReviews = () => {
 
     const deleteConfirm = (event) => {
         if (singleItemInfo?._id) {
-            singleServiceDelete(singleItemInfo?._id)
+            singleItemDelete(singleItemInfo?._id)
         }
     }
-    const singleServiceDelete = async (id) => {
-        const location = `http://localhost:5000/service/${id}`;
+    const singleItemDelete = async (id) => {
+        const location = `http://localhost:5000/review/${id}`;
         const settings = {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('ds-token')}`
+            }
         };
         try {
             const fetchResponse = await fetch(location, settings);
@@ -118,6 +122,66 @@ const ClientReviews = () => {
         }
     }
 
+    const [documentEdit, setDocumentEdit] = useState(false);
+    const [rating, setRating] = useState(5);
+
+    const popupHandler = (event) => {
+        if (event == 'delete') {
+            setPopupConfirm(true);
+            setDocumentEdit(true);
+        }
+
+    }
+
+    const handleUpdateReview = (e) => {
+        e.preventDefault();
+        const reviewText = e.target.reviewText.value;
+        const newRating = rating;
+        const review = {
+            review: reviewText,
+            rating: newRating,
+        }
+        updateReview(review)
+
+    }
+    const updateReview = async (review) => {
+        const id = singleItemInfo?._id;
+        const uri = `http://localhost:5000/review/${id}`;
+        const settings = {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('ds-token')}`
+            },
+            body: JSON.stringify(review)
+        };
+        try {
+            const fetchResponse = await fetch(uri, settings);
+            const data = await fetchResponse.json();
+            if (data.success === true) {
+                showAlert('success', data.message)
+                setPopupConfirm(false);
+                const newResult = featchData.filter(u => u._id != id);
+                setFeatchData(newResult)
+                setRefresh(!refresh)
+                // console.log(newResult);
+                setSingleItemInfo('')
+                // now redirect to editing service page
+
+            } else if (data.success === false) {
+                showAlert('error', data.message)
+            } else {
+                showAlert('danger', data.message)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
+    const labelClasses = "block mb-2 text-sm text-slate-400";
+
     if (loading) {
         return <Loader />
     } else {
@@ -129,31 +193,63 @@ const ClientReviews = () => {
                             show={popupConfirm}
                             size="md"
                             popup={true}
-                            onClose={() => setPopupConfirm(false)}
+                            onClose={() => { setPopupConfirm(false), setDocumentEdit(false) }}
                         >
                             <Modal.Header />
                             <Modal.Body>
-                                <div className="text-center">
-                                    <BsExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                        Are you sure you want to delete?
-                                    </h3>
-                                    <div className="flex justify-center gap-4">
-                                        <Button
-                                            color="gray"
-                                            onClick={() => setPopupConfirm(false)}
-                                        >
-                                            No, Cancel
-                                        </Button>
 
-                                        <Button
-                                            className='bg-red-600 text-white'
-                                            onClick={() => { deleteConfirm(true), setPopupConfirm(false) }}
-                                        >
-                                            Yes, Delete Please
-                                        </Button>
+                                {documentEdit ?
+                                    <>
+                                        <form onSubmit={handleUpdateReview} className="space-y-4 ng-untouched ng-pristine ng-valid">
+                                            <div className='gap-5'>
+                                                <div className=''>
+                                                    <label htmlFor="name" className={labelClasses}>
+                                                        Ratings
+                                                    </label>
+                                                    <div>
+                                                        <StarRating rating={rating} setRating={setRating} ></StarRating>
+                                                        <p className='dark:text-white'> Current Ratting is:  {singleItemInfo?.rating}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className=''>
+                                                    <label htmlFor="name" className={labelClasses}>
+                                                        Review
+                                                    </label>
+                                                    <textarea className={inputClasses} name="reviewText" id="" cols="30" rows="3" defaultValue={singleItemInfo?.review} ></textarea>
+                                                </div>
+                                                <Button type='submit' className='bg-red-600 text-white'>Update Now</Button>
+                                            </div>
+                                        </form>
+                                    </>
+                                    :
+                                    <div className="text-center">
+                                        <BsExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                            Are you sure you want to delete?
+                                        </h3>
+                                        <div className="flex justify-center gap-4">
+                                            <Button
+                                                color="gray"
+                                                onClick={() => setPopupConfirm(false)}
+                                            >
+                                                No, Cancel
+                                            </Button>
+
+                                            <Button
+                                                className='bg-red-600 text-white'
+                                                onClick={() => { deleteConfirm(true), setPopupConfirm(false) }}
+                                            >
+                                                Yes, Delete Please
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
+
+
+
+
                             </Modal.Body>
                         </Modal>
                     </React.Fragment>
@@ -194,6 +290,7 @@ const ClientReviews = () => {
                                     <ClientReviewsRow
                                         key={da._id}
                                         da={da}
+                                        popupHandler={popupHandler}
                                         deleteConfirm={deleteConfirm}
                                         showInfo={showInfo}
                                         setPopupConfirm={setPopupConfirm}
@@ -204,6 +301,8 @@ const ClientReviews = () => {
                                     </ClientReviewsRow>
                                 )
                             }
+
+
 
                         </tbody>
                     </table>
