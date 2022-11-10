@@ -8,7 +8,7 @@ import './ServiceSingle.css'
 
 
 const ServiceSingle = () => {
-    useTitle('Services');
+    useTitle('Service Details');
     const { showAlert, setLoading, user } = useContext(AuthContext);
     const [featchData, setFeatchData] = useState([]);
     const [featchReviews, setFeatchReviews] = useState([]);

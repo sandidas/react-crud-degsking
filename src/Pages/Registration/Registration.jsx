@@ -8,6 +8,7 @@ import { storeSingleUser } from '../../Helpers/StoreSingleUser';
 import Logo from '../../assets/logo.svg'
 
 const Registration = () => {
+    useTitle('Registration')
     const { user, showAlert, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocailAccounts } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
@@ -167,7 +168,7 @@ const Registration = () => {
 
 
     const socialLogin = async event => {
-        console.log(event);
+        // console.log(event);
         await loginBySocailAccounts(event)
             .then(async (result) => {
                 const user = result.user;

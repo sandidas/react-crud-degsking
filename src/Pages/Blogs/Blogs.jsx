@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import resTime from '../../Helpers/ResponseTime';
-
+import useTitle from '../../Hooks/useTitle';
 const Blogs = () => {
+    useTitle('Blogs')
     const [times, setTime] = useState({});
     const [data, setData] = useState({});
     const [countries, setCountries] = useState({});
+
     /*
         useEffect(() => {
             let startTime = new Date().getTime();

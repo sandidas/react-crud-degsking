@@ -13,7 +13,7 @@ const ClientReviews = () => {
 
 
 
-    useTitle('Services');
+    useTitle('My Reviews');
 
     const { user, showAlert, setLoading, loading, userSignout } = useContext(AuthContext);
     const [featchData, setFeatchData] = useState([]);

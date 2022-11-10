@@ -7,7 +7,7 @@ import { Button, Modal } from 'flowbite-react';
 import ClientServiceRow from './ClientServiceRow';
 import { useNavigate } from 'react-router-dom';
 const ClientsServices = () => {
-    useTitle('Services');
+    useTitle('My Services');
 
     const { user, showAlert, setLoading, loading, userSignout } = useContext(AuthContext);
     const [featchData, setFeatchData] = useState([]);
