@@ -39,9 +39,9 @@ const Login = () => {
                 // token completed
 
                 // make sure system stored JWToken in browser memory
-                setTimeout(() => {
-                    navigate(from, { replace: true });
-                }, 2000)
+                // setTimeout(() => {
+                //     navigate(from, { replace: true });
+                // }, 2000)
 
                 showAlert('success', "Logged in successfully.");
 
@@ -72,9 +72,9 @@ const Login = () => {
                 await storeSingleUser(user, false, name, photoURL)
 
                 // make sure system stored JWToken in browser memory
-                setTimeout(() => {
-                    navigate(from, { replace: true });
-                }, 2000)
+                // setTimeout(() => {
+                //     navigate(from, { replace: true });
+                // }, 2000)
 
 
                 showAlert('success', "Logged in successfully.");

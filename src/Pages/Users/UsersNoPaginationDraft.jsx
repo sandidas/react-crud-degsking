@@ -146,7 +146,7 @@ const Users = () => {
 
 
     const showUserInfo = (id) => {
-        console.log(id);
+      //  console.log(id);
 
     }
     // console.log(popupConfirm);

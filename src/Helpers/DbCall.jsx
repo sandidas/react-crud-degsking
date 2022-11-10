@@ -10,7 +10,7 @@ const handleStoreUser = (user) => {
         .then(data => {
 
             if (data.success) {
-               console.log(data);
+             //  console.log(data);
                  alert(data.message);
                  return data.success;
             } else { return false }

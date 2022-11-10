@@ -154,7 +154,7 @@ const Users = () => {
 
 
     const showUserInfo = (id) => {
-        console.log(id);
+      //  console.log(id);
 
     }
     // console.log(popupConfirm);
@@ -245,8 +245,6 @@ const Users = () => {
                     <p>Current Page {currentPage}, Selected {itemsPerPage} </p>
                     <div className="flex justify-center space-x-1 dark:text-gray-100">
 
-                        {console.log(totalPages)}
-                        {console.log(spliceEnd)}
                         {(spliceStart != 0) &&
                             <button onClick={() => { setSpliceEnd((current) => current - 5), setSpliceStart((current) => current - 5) }}
                                 className="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow-md dark:bg-gray-900 dark:border-gray-800">

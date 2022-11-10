@@ -72,7 +72,7 @@ const ClientReviews = () => {
                 }
             } catch (error) {
 
-                console.log(error);
+              //  console.log(error);
             }
         }
         dataFetchByPagination()
@@ -174,7 +174,7 @@ const ClientReviews = () => {
                 showAlert('danger', data.message)
             }
         } catch (error) {
-            console.log(error);
+         //   console.log(error);
         }
     }
 

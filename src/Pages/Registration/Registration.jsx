@@ -6,6 +6,7 @@ import generatePassword from '../../Helpers/GeneratePassword';
 import getJwtToken from '../../Helpers/JwtToken';
 import { storeSingleUser } from '../../Helpers/StoreSingleUser';
 import Logo from '../../assets/logo.svg'
+import useTitle from '../../Hooks/useTitle';
 
 const Registration = () => {
     useTitle('Registration')
@@ -75,11 +76,13 @@ const Registration = () => {
                 showAlert('success', "Successfully Registered! Redirecting...");
                 // console.log(user);
                 setLoading(false);
-                const timer = setTimeout(() => {
-                    navigate('/')
-                    navigate(from, { replace: true });
-                }, 2000)
-                return () => clearTimeout(timer);
+                // const timer = setTimeout(() => {
+                //     navigate('/')
+                    
+                // }, 2000)
+                // return () => clearTimeout(timer);
+
+                navigate(from, { replace: true });
 
 
             })
@@ -140,7 +143,7 @@ const Registration = () => {
 
 
     const storeLog = () => {
-        console.log({ log });
+       // console.log({ log });
         // store log into data base
         const uri = "https://server-side-xi.vercel.app/log";
         const settings = {
@@ -154,15 +157,15 @@ const Registration = () => {
             const fetchResponse = fetch(uri, settings);
             const data = fetchResponse.json();
             if (data.success === true) {
-                console.log('local', data.message);
+               // console.log('local', data.message);
             } else if (data.success === false) {
-                console.log('local', data.message);
+               // console.log('local', data.message);
 
             } else {
-                console.log('local', data.message);
+              //  console.log('local', data.message);
             }
         } catch (error) {
-            console.log('Local store fail: ', error);
+           // console.log('Local store fail: ', error);
         }
     }
 
@@ -180,13 +183,13 @@ const Registration = () => {
                 }
                 await getJwtToken(currentUser);
                 // token completed
-                console.log(user);
+                //console.log(user);
                 await storeSingleUser(user, password, name, photoURL); // store user to mongo db
                 showAlert('success', "Logged in successfully.");
                 // make sure system stored JWToken in browser memory
-                setTimeout(() => {
-                    navigate(from, { replace: true });
-                }, 2000)
+                // setTimeout(() => {
+                //     navigate(from, { replace: true });
+                // }, 2000)
 
             })
             .catch((error) => {
@@ -200,7 +203,7 @@ const Registration = () => {
     useEffect(() => {
         let seconds = 0;
         const counterF = setInterval(async () => {
-            console.log(++seconds);
+          //  console.log(++seconds);
             if (seconds === 5) {
                 await clearInterval(counterF); // stop interval
                 if (user && user?.uid) {

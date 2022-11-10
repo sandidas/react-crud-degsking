@@ -223,6 +223,7 @@ const ServiceSingle = () => {
 
             <section className='pt-5 rounded-md pb-8 px-5 shadow-md dark:bg-gray-900 dark:text-gray-100 mt-5'>
                 {
+                    featchReviews &&
                     featchReviews.map((review) => <ReviewCard key={review?._id} review={review}>
 
 

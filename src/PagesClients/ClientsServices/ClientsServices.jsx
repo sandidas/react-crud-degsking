@@ -66,7 +66,7 @@ const ClientsServices = () => {
                 }
             } catch (error) {
 
-                console.log(error);
+             //   console.log(error);
             }
         }
         dataFetchByPagination()

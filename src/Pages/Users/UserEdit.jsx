@@ -39,12 +39,12 @@ const UserEdit = () => {
                     // navigate(goTourl)
                 } else {
                     showAlert('danger', 'Data Not Found');
-                    console.log(error);
+                  //  console.log(error);
                     navigate('/users/');
                 }
             } catch (error) {
                 showAlert('danger', 'Data Fetch Fail');
-                console.log(error);
+              //  console.log(error);
                 navigate('/users/');
             }
         }
@@ -66,7 +66,7 @@ const UserEdit = () => {
             email: userEmail,
             password: userPassword,
         }
-        console.log(user);
+       // console.log(user);
         handleUpdateUser(user, id);// send to server helper 
         showAlert('success', 'data Updated');
     }
@@ -87,7 +87,7 @@ const UserEdit = () => {
 
             if (data.success) {
                 const { userId } = data;
-                console.log(data);
+               // console.log(data);
                 // const goTourl = `/users/edt/${userId}`;
                 // navigate(goTourl)
             } else {
@@ -95,7 +95,7 @@ const UserEdit = () => {
                 return error;
             }
         } catch (error) {
-            console.log(error);
+           // console.log(error);
             return error;
         }
     }

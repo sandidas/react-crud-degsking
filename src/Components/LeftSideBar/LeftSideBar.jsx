@@ -13,7 +13,7 @@ const LeftSideBar = () => {
 
     return (
         <div className="sidebar" >
-            {items.map((item, index) => <SidebarItem key={index} item={item} />)}
+            { items && items.map((item, index) => <SidebarItem key={index} item={item} />)}
         </div>
     );
 };

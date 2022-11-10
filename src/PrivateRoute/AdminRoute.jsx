@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/UserContext';
 
 const AdminRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
-    console.log(user);
+   // console.log(user);
 
     if (user && user?.uid) {
         return (

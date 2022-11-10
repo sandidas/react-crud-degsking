@@ -26,17 +26,12 @@ socialLogin > storeSingleUser (if empty password then generate password by a fun
 - Light and Dark mode
 - Profile edit-update
 - SEO frienldy dynamic URL
-- Load data from live server (vite)
-- Private / Premium component for individual courses
-- Course PDF download
+- Load data from live server (MongoDB)
 - Restricted Environment (Firebase)
 - Blogs
 - Dynamic Error / 404 page
 - Meaningful Design
-- Organized Folder, file and code structure
-- Optimized code by avoiding unnecessary data loading.
-- Meaningful FAQ
-- Dynamic Profile page, User can update profile from this page
+
 - Loading image from Live Server (All images are well optimized and resized)
 -
 
@@ -45,7 +40,6 @@ socialLogin > storeSingleUser (if empty password then generate password by a fun
 - React (Default, Loader, Router, Context API)
 - Tailwind (CSS Library)
 - Toastify (For Notifications)
-- Lottie Animation https://lottiefiles.com/
 - Google Firebase (hosting and Auth)
 - React To Pdf (to create PDF)
 - React Icons

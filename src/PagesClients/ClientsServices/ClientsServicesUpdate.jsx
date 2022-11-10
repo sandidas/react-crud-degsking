@@ -114,7 +114,7 @@ const ClientsServicesUpdate = () => {
             deleted_at: '',
             updated_at: Date.now(),
         }
-        console.log(service);
+       // console.log(service);
 
         patchService(service);
     };
@@ -145,7 +145,7 @@ const ClientsServicesUpdate = () => {
                 showAlert('danger', data.message)
             }
         } catch (error) {
-            console.log(error);
+          //  console.log(error);
         }
         setLoading(false);
     }

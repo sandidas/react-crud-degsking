@@ -57,7 +57,7 @@ const UserCreate = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
-    console.log(name);
+   // console.log(name);
     const handleAdduser = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -75,7 +75,7 @@ const UserCreate = () => {
             phone: userPhone,
         }
         // handleStoreUser(user);// send to server by utitilites 
-        console.log(user);
+        //console.log(user);
     }
 
 
@@ -92,7 +92,7 @@ const UserCreate = () => {
             <h1 className='text-center text-3xl pt-5 mb-20 font-bold'>Create User</h1>
             <form onSubmit={handleAdduser} className="space-y-4 ng-untouched ng-pristine ng-valid">
                 <div className='grid grid-cols-8 gap-5'>
-                    {
+                    { formFieldsShorted &&
                         formFieldsShorted.map(field =>
                             <div key={field._id} className={field?.widthClass}>
 
