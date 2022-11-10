@@ -27,39 +27,7 @@
     "path": "/dashboard/reviews"
   },
   {
-    "title": "Profile",
-    "icon": "bi-person-fill",
-    "childrens": [
-      {
-        "title": "Profile",
-        "path": "/profile"
-      },
-      {
-        "title": "Settings",
-        "childrens": [
-          {
-            "title": "Account",
-            "path": "/settings/account"
-          },
-          {
-            "title": "Billing",
-            "childrens": [
-              {
-                "title": "Payment",
-                "path": "/settings/billing/payment"
-              }
-            ]
-          },
-          {
-            "title": "Notifications",
-            "path": "/settings/notifications"
-          }
-        ]
-      },
-      {
-        "title": "Logout",
-        "path": "/logout"
-      }
-    ]
+    "title": "Logout",
+    "path": "/logout"
   }
 ]
