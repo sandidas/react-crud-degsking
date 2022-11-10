@@ -22,9 +22,11 @@ const HomeServiceCard = ({ service }) => {
             <div className="space-y-6 flex flex-col">
                 <div className="space-y-">
                     <img src={service?.thumbnail} alt="" className="block object-cover object-center w-full   rounded-md h-72 dark:bg-gray-500" />
-                    <div className="flex pt-4 items-center text-xs justify-between">
+                    <div className="flex pt-4 items-center text-purple-600 justify-between">
                         <span>Total Reviews: {service?.reviewsCount}</span>
-                        <span>Average Reviews: {service?.ratingsAverage}</span>
+                        <span>Average Reviews:
+                            {parseFloat(service?.ratingsAverage).toFixed(2)}
+                        </span>
                     </div>
                 </div>
                 <div className="space-y-2">
@@ -48,7 +50,7 @@ const HomeServiceCard = ({ service }) => {
                     <div className='font-bold text-xl'>
                         ${service?.price}
                     </div>
-                    <Link to={`/services/single/${service?._id}`} className="px-8 py-3 font-semibold rounded-md dark:bg-purple-700  bg-gray-400 text-white hover:bg-purple-800 dark:hover:bg-purple-900 dark:text-white "> Read More</Link>
+                    <Link to={`/services/single/${service?._id}`} className="px-8 py-3 font-semibold rounded-md dark:bg-purple-700  bg-gray-400 text-white hover:bg-purple-800 dark:hover:bg-purple-900 dark:text-white "> View details</Link>
                 </div>
             </div>
         </div>

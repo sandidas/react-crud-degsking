@@ -151,7 +151,7 @@ const ServiceSingle = () => {
                             <img src={featchData?.thumbnail} alt="" className="block object-cover object-center w-full   rounded-md dark:bg-gray-500" />
                             <div className="flex pt-4 items-center text-xs justify-between">
                                 <span className='text-2xl'>Total Reviews: {featchData?.reviewsCount}</span>
-                                <span className='text-2xl'>Average Reviews: {featchData?.ratingsAverage}</span>
+                                <span className='text-2xl'>Average Reviews: {   parseFloat(featchData?.ratingsAverage).toFixed(2) }</span>
                             </div>
                         </div>
                         <div className="space-y-2">
