@@ -134,31 +134,82 @@ const Header = ({ showHideSideNav, setShowHideSideNav }) => {
                 Blogs
             </NavLink>
         </li>
-        <li className="flex">
-            <NavLink to="login" className={({ isActive }) => (isActive ?
-                "dark:text-white text-purple-800 hover:text-white"
-                :
-                "hover:underline")} >
-                Login
-            </NavLink>
-        </li>
+        {user && user?.uid ? "" : ""}
 
-        <li className="flex">
-            <NavLink to="registration" className={({ isActive }) => (isActive ?
-                "dark:text-white text-purple-800 hover:text-white"
-                :
-                "hover:underline")} >
-                Registration
-            </NavLink>
-        </li>
-        <li className="flex">
-            <NavLink to="dashboard" className={({ isActive }) => (isActive ?
-                "dark:text-white text-purple-800 hover:text-white"
-                :
-                "hover:underline")} >
-                Dashboard
-            </NavLink>
-        </li>
+        {!user?.uid &&
+            <li className="flex">
+                <NavLink to="/login" className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+                    Login
+                </NavLink>
+            </li>
+        }
+        {!user?.uid &&
+            <li className="flex">
+                <NavLink to="/registration" className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+                    Registration
+                </NavLink>
+            </li>
+        }
+
+
+        {user?.uid &&
+
+            <li className="flex">
+                <NavLink to="/dashboard/services/" className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+                    My Services
+                </NavLink>
+            </li>
+        }
+        {user?.uid &&
+
+            <li className="flex">
+                <NavLink to="/dashboard/reviews" className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+                    My Reviews
+                </NavLink>
+            </li>
+        }
+        {user?.uid &&
+
+            <li className="flex bg-purple-700 px-5 py-2 rounded-md text-white hover:bg-purple-900">
+                <button onClick={handleUserSignout} className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+                    Logout
+                </button>
+            </li>
+        }
+
+        {user?.uid &&
+
+            <li className="flex font-bold text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                </svg>
+                <NavLink to="dashboard" className={({ isActive }) => (isActive ?
+                    "dark:text-white text-purple-800 hover:text-white"
+                    :
+                    "hover:underline")} >
+
+
+
+                    Dashboard
+                </NavLink>
+            </li>
+        }
+
 
     </>
 
