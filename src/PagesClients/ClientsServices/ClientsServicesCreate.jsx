@@ -119,7 +119,7 @@ const ClientsServicesCreate = () => {
 
 
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
-    const labelsClass = "block mb-2 text-sm text-slate-400"
+    const labelsClass = "block mb-2 text-sm text-slate-400";
     return (
         <div>
 
@@ -138,11 +138,13 @@ const ClientsServicesCreate = () => {
                         <div>
                             <label htmlFor="service_categories" className={labelsClass}>Category</label>
                             <select name="service_categories" id="service_categories" className={inputClasses} >
-
-                                <option value={'Website Design'}>Website Design</option>
-                                <option value={'Website Development'}>Website Development</option>
-                                <option value={'Website Development'}>Web App Development</option>
-                                <option value={'Website Development'}>Mobile App Development</option>
+                                <option value={'Traditional Wedding Photography'}>Traditional Wedding Photography</option>
+                                <option value={'Artistic Wedding Photography'}>Artistic Wedding Photography</option>
+                                <option value={'Natural Wedding Photography'}>Natural Wedding Photography</option>
+                                <option value={'Editorial Wedding Photography'}>Editorial Wedding Photography</option>
+                                <option value={'Documentary Wedding Photography'}>Documentary Wedding Photography</option>
+                                <option value={'Portrait Wedding Photography'}>Portrait Wedding Photography</option>
+                                <option value={'Vintage Wedding Photography'}>Vintage Wedding Photography</option>
                             </select>
                         </div>
 

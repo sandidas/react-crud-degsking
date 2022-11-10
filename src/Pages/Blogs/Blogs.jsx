@@ -7,42 +7,26 @@ const Blogs = () => {
     const [data, setData] = useState({});
     const [countries, setCountries] = useState({});
 
-    /*
-        useEffect(() => {
-            let startTime = new Date().getTime();
-            fetch(`https://degsking-ass.vercel.app/courses`)
-                .then((res) => res.json())
-                .then((data) => {
-                    setData(data);
-                    let endTime = new Date().getTime();
-                    setTime(resTime(startTime, endTime));
-                });
-        }, []);
-    */
-    useEffect(() => {
-        const callApi = async () => {
-            let startTime = new Date().getTime();
-            const apiUrl = 'http://localhost:5000/users';
-            try {
-                const res = await fetch(apiUrl);
-                const data = await res.json();
-                setCountries(data);
-                let endTime = new Date().getTime();
-                setTime(resTime(startTime, endTime));
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        callApi();
 
-    }, []);
 
     return (
         <div>
-            <p className={times.className}> loading time {times.res}ms </p>
+            <section className='flex flex-col space-y-8 py-20'>
+                <div className='py-12 text-center'>
+                    <h1 className='text-7xl font-bold'> BLOGS </h1>
+                    <p>Read! or write, your will learn something new......tooth tooth tooth</p>
+                </div>
+                <div className='space-y-5 text-center'>
+                    <div>
+                        <h2> </h2>
+                        <p> </p>
+                    </div>
 
-            <p>total blog             {data.length}</p>
-            This is Blogs
+
+
+
+                </div>
+            </section>
         </div>
     );
 };

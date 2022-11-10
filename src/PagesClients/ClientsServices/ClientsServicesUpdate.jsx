@@ -173,10 +173,14 @@ const ClientsServicesUpdate = () => {
                             <label htmlFor="service_categories" className={labelsClass}>Category</label>
                             <select name="service_categories" id="service_categories" className={inputClasses} >
                                 <option defaultValue={singleData?.service_categories}>{singleData?.service_categories}</option>
-                                <option value={'Website Design'}>Website Design</option>
-                                <option value={'Website Development'}>Website Development</option>
-                                <option value={'Website Development'}>Web App Development</option>
-                                <option value={'Website Development'}>Mobile App Development</option>
+
+                                <option value={'Traditional Wedding Photography'}>Traditional Wedding Photography</option>
+                                <option value={'Artistic Wedding Photography'}>Artistic Wedding Photography</option>
+                                <option value={'Natural Wedding Photography'}>Natural Wedding Photography</option>
+                                <option value={'Editorial Wedding Photography'}>Editorial Wedding Photography</option>
+                                <option value={'Documentary Wedding Photography'}>Documentary Wedding Photography</option>
+                                <option value={'Portrait Wedding Photography'}>Portrait Wedding Photography</option>
+                                <option value={'Vintage Wedding Photography'}>Vintage Wedding Photography</option>
                             </select>
                         </div>
 
