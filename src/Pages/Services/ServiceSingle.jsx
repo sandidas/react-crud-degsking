@@ -8,7 +8,7 @@ import './ServiceSingle.css'
 
 const ServiceSingle = () => {
     useTitle('Services');
-    const { showAlert, setLoading } = useContext(AuthContext);
+    const { showAlert, setLoading, user } = useContext(AuthContext);
     const [featchData, setFeatchData] = useState([]);
     const { id } = useParams()
 
@@ -71,9 +71,7 @@ const ServiceSingle = () => {
 
 
 
-    const handleReviewSubmit = () => {
 
-    }
 
 
 
@@ -82,17 +80,30 @@ const ServiceSingle = () => {
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
     const labelClasses = "block mb-2 text-sm text-slate-400";
 
-    const ratingPrint = (rating = 0) => {
-        // Get percentige
-        const outOfrating = 5; // total rating
-        // original rating devide by current rating and .....
-        const starPercentige = (rating / outOfrating) * 100;
-        // Let's round by 5. For example 4.3 convert to 4.5 and 4.8 convert to 5
-        const starPercentigeRounded = `${Math.round(starPercentige / 5) * 5}%`;
-        // console.log(starPercentige, starPercentigeRounded);
-        return starPercentigeRounded;
-      };
+    const [rating, setRating] = useState(5);
+    const [review, setreview] = useState('');
+    console.log(rating);
+    console.log(review);
 
+    const handleReviewSubmit = (e) => {
+        e.preventDefault();
+        if (!rating || !review) {
+            showAlert('danger', "Please submit review and rating.");
+            return
+        }
+        const uid = user?.uid;
+        const reviewData = {
+            rating: rating,
+            review: review,
+            uid: uid,
+            service_id: id,
+            soft_delete: false,
+            deleted_at: '',
+            updated_at: '',
+            created_at: Date.now(),
+        }
+        console.log(reviewData);
+    }
 
 
     return (
@@ -130,38 +141,26 @@ const ServiceSingle = () => {
                 </div>
             </section>
             <section>
-                <form onSubmit={() => handleReviewSubmit(e)} className="space-y-4 ng-untouched ng-pristine ng-valid">
-
+                <form onSubmit={(e) => handleReviewSubmit(e)} className="space-y-4 ng-untouched ng-pristine ng-valid">
                     <div className='grid grid-cols-8 gap-5'>
-
-                        <div>
-
+                        <div className='col-span-8'>
+                            <label htmlFor="name" className={labelClasses}>
+                                Ratings
+                            </label>
+                            <div>
+                                <StarRating rating={rating} setRating={setRating} ></StarRating>
+                            </div>
                         </div>
 
                         <div className='col-span-8'>
                             <label htmlFor="name" className={labelClasses}>
                                 Review *
                             </label>
-
-                            <textarea className={inputClasses} name="" id="" cols="30" rows="10"></textarea>
+                            <textarea className={inputClasses} name="" id="" cols="30" rows="3" onChange={(e) => { setreview(e.target.value) }}></textarea>
                         </div>
-
-
-
-                        <div className='col-span-8'>
-                            <label htmlFor="name" className={labelClasses}>
-                                Ratings
-                            </label>
-                            <div>
-                                <StarRating />
-                               
-                            5.0
-                            </div>
-
-                        </div>
+                        <button className="flex items-center justify-center w-full p-4 my-2 space-x-4  rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-400 focus:ring-violet-400 hover:bg-purple-800 hover:text-white bg-purple-600 text-white">Submit Review</button>
                     </div>
                 </form>
-
             </section>
         </div >
     );
