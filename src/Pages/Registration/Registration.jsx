@@ -78,7 +78,7 @@ const Registration = () => {
                 const timer = setTimeout(() => {
                     navigate('/')
                     navigate(from, { replace: true });
-                }, 4000)
+                }, 2000)
                 return () => clearTimeout(timer);
 
 
@@ -186,7 +186,7 @@ const Registration = () => {
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {
                     navigate(from, { replace: true });
-                }, 4000)
+                }, 2000)
 
             })
             .catch((error) => {

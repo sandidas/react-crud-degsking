@@ -41,7 +41,7 @@ const Login = () => {
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {
                     navigate(from, { replace: true });
-                }, 4000)
+                }, 2000)
 
                 showAlert('success', "Logged in successfully.");
 
@@ -74,7 +74,7 @@ const Login = () => {
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {
                     navigate(from, { replace: true });
-                }, 4000)
+                }, 2000)
 
 
                 showAlert('success', "Logged in successfully.");
