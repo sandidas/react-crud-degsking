@@ -59,9 +59,10 @@ const Registration = () => {
                 // after data added to firebase will add into mongo
 
                 // store log to mongo db
-                const user = result.user;
-                //
-                storeSingleUser(user, password); // store user to mongo db
+                let user = result.user;
+
+                // return
+                storeSingleUser(user, password, name, photoURL); // store user to mongo db
 
                 // get/generate jwt token
                 const currentUser = {
@@ -89,6 +90,8 @@ const Registration = () => {
         // if (log.length == 3) {  }
     }
 
+
+
     // fire with firebase
     const handleUpdateUserProfile = async (name, photoURL) => {
         const profile = {
@@ -108,6 +111,11 @@ const Registration = () => {
             }
             );
     }
+
+
+
+
+
     const handleEmailVerification = async () => {
         await verifyEmail()
             .then(() => {
@@ -163,6 +171,8 @@ const Registration = () => {
         await loginBySocailAccounts(event)
             .then(async (result) => {
                 const user = result.user;
+                const name = result.user?.displayName;
+                const photoURL = result.user?.photoURL;
                 // get/generate jwt token
                 const currentUser = {
                     email: user.email
@@ -170,7 +180,7 @@ const Registration = () => {
                 await getJwtToken(currentUser);
                 // token completed
                 console.log(user);
-                await storeSingleUser(user, password); // store user to mongo db
+                await storeSingleUser(user, password, name, photoURL); // store user to mongo db
                 showAlert('success', "Logged in successfully.");
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {

@@ -91,7 +91,7 @@ const UserContext = ({ children }) => {
     }, [auth])
 
     // console.log('loader Status: ', loading);
-
+console.log(user);
     // pass data by context
     const authInfo = { showAlert, loading, setLoading, logInbyEmailAndPassword, loginBySocailAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, user }
 

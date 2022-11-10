@@ -68,8 +68,6 @@ const ClientsServicesCreate = () => {
             description: description,
             price: price,
             thumbnail: thumbnail,
-            total_reviews: 0,
-            total_reviews_average: 0,
             uid: uid,
             soft_delete: false,
             deleted_at: '',

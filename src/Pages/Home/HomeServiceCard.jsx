@@ -23,8 +23,8 @@ const HomeServiceCard = ({ service }) => {
                 <div className="space-y-">
                     <img src={service?.thumbnail} alt="" className="block object-cover object-center w-full   rounded-md h-72 dark:bg-gray-500" />
                     <div className="flex pt-4 items-center text-xs justify-between">
-                        <span>Total Reviews: {service?.total_reviews}</span>
-                        <span>Average Reviews: {service?.total_reviews_average}</span>
+                        <span>Total Reviews: {service?.reviewsCount}</span>
+                        <span>Average Reviews: {service?.ratingsAverage}</span>
                     </div>
                 </div>
                 <div className="space-y-2">

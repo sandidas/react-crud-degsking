@@ -25,7 +25,7 @@ const ClientServiceRow = ({ da, deleteConfirm, showInfo, popupConfirm, setPopupC
                 <i className='text-gray-400 dark:text-gray-400'>{da?.slug}</i>
             </td>
             <td className="">
-                {da?.total_reviews_average}
+                {da?.ratingsAverage}
             </td>
             <td className="p-1 flex">
                 <button onClick={() => { setPopupConfirm(true); setSingleItemInfo(da) }} className={deleteButtonClass}>

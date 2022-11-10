@@ -58,7 +58,7 @@ const Login = () => {
 
     const socialLogin = event => {
         loginBySocailAccounts(event)
-            .then((result) => {
+            .then(async (result) => {
                 const user = result.user;
                 // get/generate jwt token
                 const currentUser = {
@@ -67,7 +67,9 @@ const Login = () => {
                 getJwtToken(currentUser);
                 // token completed
 
-                storeSingleUser(user, false)
+                const name = result.user?.displayName;
+                const photoURL = result.user?.photoURL;
+                await storeSingleUser(user, false, name, photoURL)
 
                 // make sure system stored JWToken in browser memory
                 setTimeout(() => {

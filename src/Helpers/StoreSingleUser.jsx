@@ -1,6 +1,6 @@
 import generatePassword from "./GeneratePassword";
 
-export const storeSingleUser = async (user, password) => {
+export const storeSingleUser = async (user, password, name, photoURL) => {
     let userPassword;
     if (!password) {
         userPassword = generatePassword();
@@ -9,10 +9,10 @@ export const storeSingleUser = async (user, password) => {
     }
 
     const userInfo = {
-        name: user.name, // come from state
+        name: name, // come from state
         email: user.email, // come from state
-        password: userPassword, // come from state
-        photoURL: user.photoURL,
+        password: user.password, // come from state
+        photoURL: photoURL,
         phoneNumber: user.phoneNumber,
         uid: user.uid,
         description: '',
