@@ -11,6 +11,7 @@ import ServiceSingle from "../Pages/Services/ServiceSingle";
 import UserCreate from "../Pages/Users/UserCreate";
 import UserEdit from "../Pages/Users/UserEdit";
 import Users from "../Pages/Users/Users";
+import ClientReviews from "../PagesClients/ClientReviews/ClientReviews";
 import ClientsServices from "../PagesClients/ClientsServices/ClientsServices";
 import ClientsServicesCreate from "../PagesClients/ClientsServices/ClientsServicesCreate";
 import ClientsServicesUpdate from "../PagesClients/ClientsServices/ClientsServicesUpdate";
@@ -90,6 +91,9 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/services/edit/:id',
                 element: <PrivateRoute><ClientsServicesUpdate></ClientsServicesUpdate></PrivateRoute>,
+            }, {
+                path: '/dashboard/reviews',
+                element: <PrivateRoute><ClientReviews></ClientReviews></PrivateRoute>,
             },
         ]
 

@@ -24,7 +24,7 @@
   {
     "title": "Reviews",
     "icon": "bi-info-circle-fill",
-    "path": "/reviews"
+    "path": "/dashboard/reviews"
   },
   {
     "title": "Profile",
