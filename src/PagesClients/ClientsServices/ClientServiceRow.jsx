@@ -4,6 +4,8 @@ import { GrView, GrEdit } from "react-icons/gr";
 import { Link } from 'react-router-dom';
 
 const ClientServiceRow = ({ da, deleteConfirm, showInfo, popupConfirm, setPopupConfirm, setSingleItemInfo }) => {
+
+    
     const deleteButtonClass = "px-2 py-2 m-1 font-semibold rounded-md shadow border dark:bg-slate-300 dark:text-gray-900 text-lg dark:hover:bg-red-500 dark:hover:text-gray-100 hover:text-gray-100 hover:bg-red-500 dark:border-none";
     const viewButtonClass = "px-2 py-2 m-1 font-semibold rounded-md shadow border dark:bg-slate-300 dark:text-gray-900 text-lg dark:hover:bg-green-500 dark:hover:text-white hover:text-white hover:bg-green-500 dark:border-none";
 
